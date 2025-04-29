@@ -71,7 +71,7 @@
       font-weight: 600;
     }
     .tag.rent {
-      background: #4d8cff;
+      background: #000000;
     }
     .property-meta {
       font-size: 0.95rem;
@@ -142,11 +142,6 @@
   <div class="container property-cards mb-5">
     <% results.forEach((property, index) => { %>
       <div class="card property-card position-relative">
-        <% if(property.forRent) { %>
-          <span class="tag rent"><%= __('For Rent') %></span>
-        <% } else { %>
-          <span class="tag"><%= __('For Sell') %></span>
-        <% } %>
         <img src="<%= property.imageUrl || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' %>" alt="<%= __('Property Image') %>">
         <div class="card-body">
           <h5 class="card-title text-primary">$ <%= property.price %></h5>
