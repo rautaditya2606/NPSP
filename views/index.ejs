@@ -1,212 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= __('Property Search') %></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gov Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+  <!-- Add IME dependencies -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/css/jquery.ime.min.css">
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f3f4f6;
-    }
-    
-    .page-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
+    /* Combined styles */
+    :root {
+      --primary: #0b3558;
+      --secondary: #0a58ca;
+      --accent: #138808;
     }
 
-    /* Government header styles */
-    .gov-header {
-      background: #0b3558;
-      color: white;
-      padding: 0.5rem 1rem;
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
     }
 
     .search-card {
-      background: white;
-      border-radius: 1rem;
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid #e5e7eb;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transition: transform 0.3s ease;
     }
 
-    .search-card::before {
-      content: '';
+    .search-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .shape {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(to right, #ff9933, white, #138808);
+      z-index: -1;
+      opacity: 0.6;
+      filter: blur(40px);
     }
 
-    .method-btn {
-      background: #f3f4f6;
-      border: 1px solid #e5e7eb;
-      color: #374151;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-      font-weight: 500;
-      transition: all 0.2s;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .method-btn.active {
-      background: #1d4ed8;
-      color: white;
-      border-color: #1d4ed8;
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
     }
 
-    .form-control, .form-select {
-      border-radius: 0.5rem;
-      border: 1px solid #e5e7eb;
-      padding: 0.75rem 1rem;
+    .input-field {
+      border-radius: 12px;
+      padding: 12px 16px;
+      transition: all 0.3s ease;
     }
 
-    .form-control:focus {
-      border-color: #1d4ed8;
-      box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.1);
+    .input-field:focus {
+      box-shadow: 0 0 0 3px rgba(11, 53, 88, 0.25);
     }
 
     .search-btn {
-      background: #1d4ed8;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
       color: white;
-      border-radius: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      font-weight: 500;
-      transition: all 0.2s;
+      border-radius: 12px;
+      padding: 14px 24px;
+      transition: transform 0.3s ease;
     }
 
     .search-btn:hover {
-      background: #1e40af;
-    }
-
-    .alert-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-
-    .alert {
-      transform: translateX(150%);
-      transition: transform 0.3s ease;
-      margin-bottom: 10px;
-      padding: 1rem 1.5rem;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .alert.show {
-      transform: translateX(0);
-    }
-
-    .alert-danger {
-      background: linear-gradient(45deg, #ff4b4b, #ff6b6b);
-      color: white;
-    }
-
-    .alert button.close {
-      color: white;
-      opacity: 0.8;
-      text-shadow: none;
+      transform: translateY(-2px);
     }
   </style>
 </head>
-<body>
-  <!-- Government Header -->
-  <header class="gov-header">
-    <div class="container d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center gap-2">
-        <img src="/emblem.png" alt="Emblem" class="h-6">
-        <span>भारत सरकार | Government of India</span>
-      </div>
-      <div class="d-none d-sm-block">
-        <span class="fst-italic">Ministry of Digital Infrastructure & Services</span>
-      </div>
-    </div>
-  </header>
+<body class="bg-gray-50">
 
-  <main class="max-w-6xl mx-auto mt-8 px-4">
-    <!-- Title and Description -->
-    <div class="text-center mb-12">
-      <h1 class="text-3xl font-semibold text-gray-900 mb-2 tracking-tight">
-        <%= __('Property Verification Portal') %>
+  <!-- Keep original navigation header -->
+
+  <main class="max-w-4xl mx-auto mt-8 px-4">
+    <div class="text-center mb-12 fade-in">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2 tracking-tight">
+        Property Verification Portal
       </h1>
       <p class="text-gray-600 text-base max-w-xl mx-auto">
-        <%= __("Government of India's official platform for property record verification.") %>
+        Government of India's official platform for property record verification.
       </p>
     </div>
 
-    <!-- Search Card -->
-    <div class="bg-white shadow-2xl rounded-xl p-8 border border-gray-200 relative overflow-hidden">
-      <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#0b3558] via-[#0a58ca] to-[#138808]"></div>
+    <!-- Enhanced Search Card -->
+    <div class="search-card relative p-8 border border-gray-200/80 overflow-hidden">
+      <!-- Decorative shapes -->
+      <div class="shape w-64 h-64 bg-[var(--primary)] -top-32 -right-32"></div>
+      <div class="shape w-72 h-72 bg-[var(--accent)] -bottom-40 -left-40"></div>
+      
+      <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[var(--primary)] via-[var(--secondary)] to-[var(--accent)]"></div>
 
+      <!-- Tabs -->
+      <div class="flex flex-col sm:flex-row justify-center gap-3 mb-8 fade-in">
+        <button onclick="showTab('name')" class="tab-btn bg-blue-50 text-blue-900 px-6 py-3 rounded-lg border border-blue-200 font-medium flex items-center gap-2 hover:scale-[1.02] transition-transform">
+          <i class="fas fa-user"></i> By Name
+        </button>
+        <button onclick="showTab('id')" class="tab-btn bg-gray-50 text-gray-800 px-6 py-3 rounded-lg border border-gray-300 font-medium flex items-center gap-2 hover:scale-[1.02] transition-transform">
+          <i class="fas fa-hashtag"></i> By Property ID
+        </button>
+        <button onclick="showTab('reg')" class="tab-btn bg-gray-50 text-gray-800 px-6 py-3 rounded-lg border border-gray-300 font-medium flex items-center gap-2 hover:scale-[1.02] transition-transform">
+          <i class="fas fa-file-alt"></i> By Registration
+        </button>
+      </div>
+
+      <!-- Tab Content -->
       <form action="/search" method="POST" class="max-w-2xl mx-auto space-y-8">
-        <!-- Tabs -->
-        <div class="flex flex-col sm:flex-row justify-center gap-3 mb-8">
-          <button type="button" onclick="showTab('name')" class="tab-btn bg-blue-50 text-blue-900 px-6 py-3 rounded-lg border border-blue-200 font-medium flex items-center gap-2" data-value="ownerName">
-            <i class="fas fa-user"></i> <%= __('By Name') %>
-          </button>
-          <button type="button" onclick="showTab('id')" class="tab-btn bg-gray-50 text-gray-800 px-6 py-3 rounded-lg border border-gray-300 font-medium flex items-center gap-2" data-value="propertyId">
-            <i class="fas fa-hashtag"></i> <%= __('By Property ID') %>
-          </button>
-          <button type="button" onclick="showTab('reg')" class="tab-btn bg-gray-50 text-gray-800 px-6 py-3 rounded-lg border border-gray-300 font-medium flex items-center gap-2" data-value="registrationNumber">
-            <i class="fas fa-file-alt"></i> <%= __('By Registration') %>
-          </button>
-        </div>
-        <input type="hidden" name="method" id="method" value="ownerName">
-
-        <!-- Tab Content -->
-        <div class="space-y-8">
-          <!-- Name Tab -->
-          <div id="tab-name" class="tab-content">
-            <div class="space-y-4">
-              <div class="flex gap-4">
-                <div class="w-1/2">
-                  <label class="block text-sm font-medium text-gray-700"><%= __('First Name') %></label>
-                  <input type="text" name="firstName" id="firstName" placeholder="<%= __('Enter first name') %>" class="w-full border rounded-lg px-4 py-3 border-gray-200 focus:ring-blue-300 focus:outline-none" />
-                </div>
-                <div class="w-1/2">
-                  <label class="block text-sm font-medium text-gray-700"><%= __('Last Name') %></label>
-                  <input type="text" name="lastName" id="lastName" placeholder="<%= __('Enter last name') %>" class="w-full border rounded-lg px-4 py-3 border-gray-200 focus:ring-blue-300 focus:outline-none" />
-                </div>
+        <!-- Name Tab -->
+        <div id="tab-name" class="tab-content space-y-4">
+          <div class="flex gap-4 fade-in">
+            <div class="w-1/2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+              <div class="input-group relative">
+                <input type="text" id="firstName" name="firstName" placeholder="First name" 
+                      class="input-field w-full border border-gray-200 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                      data-ime="true">
+              </div>
+            </div>
+            <div class="w-1/2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+              <div class="input-group relative">
+                <input type="text" id="lastName" name="lastName" placeholder="Last name" 
+                      class="input-field w-full border border-gray-200 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                      data-ime="true">
               </div>
             </div>
           </div>
 
-          <!-- Property ID & Registration Tabs -->
-          <div id="tab-id" class="tab-content hidden">
-            <div class="space-y-4">
-              <label class="block text-sm font-medium text-gray-700"><%= __('Property ID (10 digits)') %></label>
-              <input type="text" name="searchValue" placeholder="<%= __('E.g. 1234567890') %>" class="w-full border rounded-lg px-4 py-3 border-gray-200 focus:ring-blue-300 focus:outline-none" />
-            </div>
-          </div>
+          <div class="g-recaptcha fade-in" data-sitekey="YOUR_SITE_KEY_HERE"></div>
 
-          <div id="tab-reg" class="tab-content hidden">
-            <div class="space-y-4">
-              <label class="block text-sm font-medium text-gray-700"><%= __('Registration Number (13 digits)') %></label>
-              <input type="text" name="searchValue" placeholder="<%= __('E.g. 1234567890123') %>" class="w-full border rounded-lg px-4 py-3 border-gray-200 focus:ring-blue-300 focus:outline-none" />
-            </div>
-          </div>
-
-          <!-- CAPTCHA -->
-          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
-
-          <button type="submit" class="w-full bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-800 flex items-center justify-center gap-2">
-            <i class="fas fa-search"></i> <%= __('Search Property') %>
+          <button type="submit" class="search-btn w-full flex items-center justify-center gap-2">
+            <i class="fas fa-search"></i> Search Property
           </button>
+        </div>
+
+        <!-- Property ID Tab -->
+        <div id="tab-id" class="tab-content hidden">
+          <div class="space-y-4 fade-in">
+            <label class="block text-sm font-medium text-gray-700">Property ID (10 digits)</label>
+            <input type="text" id="propertyId" name="propertyId" placeholder="E.g. 1234567890" 
+                  class="input-field w-full border border-gray-200 focus:ring-2 focus:ring-blue-300 focus:outline-none">
+            <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+            <button type="submit" class="search-btn w-full flex items-center justify-center gap-2">
+              <i class="fas fa-search"></i> Search Property
+            </button>
+          </div>
+        </div>
+
+        <!-- Registration Number Tab -->
+        <div id="tab-reg" class="tab-content hidden">
+          <div class="space-y-4 fade-in">
+            <label class="block text-sm font-medium text-gray-700">Registration Number (13 digits)</label>
+            <input type="text" id="registrationNumber" name="registrationNumber" placeholder="E.g. 1234567890123" 
+                  class="input-field w-full border border-gray-200 focus:ring-2 focus:ring-blue-300 focus:outline-none">
+            <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+            <button type="submit" class="search-btn w-full flex items-center justify-center gap-2">
+              <i class="fas fa-search"></i> Search Property
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -215,75 +175,93 @@
   <!-- Toast Alert -->
   <div id="toast" class="fixed bottom-6 right-6 bg-red-50 text-red-800 border border-red-300 px-4 py-3 rounded-lg shadow-lg hidden transition-all duration-300 z-50"></div>
 
-  <!-- Include jquery.ime scripts -->
+  <!-- JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.selector.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.inputmethods.min.js"></script>
 
   <script>
-    // Tab switching functionality
-    function showTab(tab) {
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
-      document.getElementById(`tab-${tab}`).classList.remove('hidden');
-      document.getElementById('method').value = tab === 'name' ? 'ownerName' : tab === 'id' ? 'propertyId' : 'registrationNumber';
-    }
-
-    // Initialize IME
-    $(document).ready(function(){
-      $('#firstName, #lastName').ime({
+    // Initialize IME for transliteration
+    $(document).ready(function() {
+      $('[data-ime="true"]').ime({
         imePath: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/',
-        languages: ['hi'],
+        lang: 'hi'
       });
     });
 
-    // Form validation
-    document.querySelector('form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const method = document.getElementById('method').value;
+    // Tab management with validation
+    let currentTab = 'name';
+    const tabs = {
+      name: document.getElementById('tab-name'),
+      id: document.getElementById('tab-id'),
+      reg: document.getElementById('tab-reg')
+    };
+
+    function showTab(key) {
+      // Hide all tabs
+      Object.values(tabs).forEach(tab => tab.classList.add('hidden'));
       
-      // Validate captcha first
-      const captchaResponse = grecaptcha.getResponse();
-      if (!captchaResponse) {
-        showToast("Please complete the CAPTCHA verification");
-        return;
+      // Show selected tab
+      tabs[key].classList.remove('hidden');
+      currentTab = key;
+      
+      // Update button states
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-100', 'border-blue-200', 'text-blue-900');
+        btn.classList.add('bg-gray-100', 'border-gray-300', 'text-gray-800');
+      });
+      event.target.classList.add('bg-blue-100', 'border-blue-200', 'text-blue-900');
+    }
+
+    // Form validation
+    document.querySelector('form').addEventListener('submit', function(e) {
+      let isValid = true;
+      let message = '';
+
+      switch(currentTab) {
+        case 'name':
+          const firstName = document.getElementById('firstName').value.trim();
+          const lastName = document.getElementById('lastName').value.trim();
+          if(!firstName || !lastName) {
+            isValid = false;
+            message = "Please enter both first and last names";
+          }
+          break;
+          
+        case 'id':
+          const propertyId = document.getElementById('propertyId').value.trim();
+          if(!/^\d{10}$/.test(propertyId)) {
+            isValid = false;
+            message = "Property ID must be exactly 10 digits";
+          }
+          break;
+          
+        case 'reg':
+          const regNumber = document.getElementById('registrationNumber').value.trim();
+          if(!/^\d{13}$/.test(regNumber)) {
+            isValid = false;
+            message = "Registration Number must be exactly 13 digits";
+          }
+          break;
       }
 
-      // Existing validation logic
-      if (method === 'ownerName') {
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
-        if (!firstName || !lastName) {
-          showToast('Please fill in both first and last name');
-          return;
-        }
-      } else {
-        const searchValue = document.querySelector(`#tab-${method === 'propertyId' ? 'id' : 'reg'} input`).value;
-        if (!searchValue) {
-          showToast('Please enter a search value');
-          return;
-        }
-        if (method === 'propertyId' && !/^\d{10}$/.test(searchValue)) {
-          showToast('Property ID must be exactly 10 digits');
-          return;
-        }
-        if (method === 'registrationNumber' && !/^\d{13}$/.test(searchValue)) {
-          showToast('Registration Number must be exactly 13 digits');
-          return;
-        }
+      if(!isValid) {
+        e.preventDefault();
+        showToast(message, 'error');
       }
-
-      // If validation passes, submit the form
-      this.submit();
     });
 
-    // Toast functionality
-    function showToast(message) {
+    // Toast notification
+    function showToast(message, type = 'error') {
       const toast = document.getElementById('toast');
       toast.textContent = message;
+      toast.className = `fixed bottom-6 right-6 px-4 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${
+        type === 'error' ? 'bg-red-50 text-red-800 border-red-300' : 'bg-green-50 text-green-800 border-green-300'
+      } border`;
+      
       toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 5000);
+      setTimeout(() => toast.classList.add('hidden'), 3000);
     }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
