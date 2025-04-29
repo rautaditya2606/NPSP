@@ -47,6 +47,7 @@
       "latitude": "26.8500",
       "longitude": "80.9500",
       "encumbrances": ["Encumbrance Certificate Issued"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://media.istockphoto.com/id/474917902/photo/modern-architecture-design-100-for-house-bungalow.jpg?s=612x612&w=0&k=20"
     },
     {
@@ -63,6 +64,7 @@
       "latitude": "26.9150",
       "longitude": "75.7900",
       "encumbrances": ["Mortgage", "Property Tax Due"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     },
     {
@@ -79,6 +81,7 @@
       "latitude": "25.6000",
       "longitude": "85.1400",
       "encumbrances": ["Lien"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     },
     {
@@ -95,6 +98,7 @@
       "latitude": "17.3900",
       "longitude": "78.4900",
       "encumbrances": ["Corporate Charge"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     },
     {
@@ -111,6 +115,7 @@
       "latitude": "13.0850",
       "longitude": "80.2750",
       "encumbrances": ["Mortgage"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     },
     {
@@ -127,6 +132,7 @@
       "latitude": "22.5750",
       "longitude": "88.3650",
       "encumbrances": ["Lien"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     },
     {
@@ -143,6 +149,7 @@
       "latitude": "18.5250",
       "longitude": "73.8600",
       "encumbrances": ["Property Tax Due"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     },
     {
@@ -159,6 +166,7 @@
       "latitude": "12.3000",
       "longitude": "76.6400",
       "encumbrances": ["Encumbrance Certificate Issued"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     },
     {
@@ -175,6 +183,7 @@
       "latitude": "25.3200",
       "longitude": "82.9800",
       "encumbrances": ["Encumbrance Certificate Issued"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     },
     {
@@ -191,6 +200,7 @@
       "latitude": "24.8000",
       "longitude": "84.9950",
       "encumbrances": ["Mortgage"],
+      "squareFeet": "Data Not Available",
       "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg"
     }
 ]

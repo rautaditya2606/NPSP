@@ -96,6 +96,10 @@
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg px-4 py-2">
+    <!-- Back Icon added -->
+    <a href="/search" class="me-3 text-decoration-none">
+      <i class="bi bi-arrow-left"></i>
+    </a>
     <a class="navbar-brand fw-bold" href="/"><%= __('NPSP') %></a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mx-auto">
@@ -150,8 +154,6 @@
           <div class="property-meta"><%= property.address %></div>
           <div class="property-features">
             <span>Sqr feet : <%= results[0].squareFeet || 'Data Not Available'  %></span>
-            <span><%= property.bathrooms || '2' %> <%= __('Bathrooms') %></span>
-            <span><%= property.bedrooms || '4' %> <%= __('Bedrooms') %></span>
           </div>
         </div>
       </div>

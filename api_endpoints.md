@@ -19,6 +19,32 @@ GET http://localhost:8080/api/registration/{registrationNumber}
 Example: http://localhost:8080/api/registration/2005202112345
 ```
 
+## Additional Endpoints
+
+### 4. Search by Doris API
+```bash
+GET http://localhost:8080/api/doris
+Example: GET http://localhost:8080/api/doris?propertyId=1234567890
+```
+
+### 5. Search by DLR API
+```bash
+GET http://localhost:8080/api/dlr
+Example: GET http://localhost:8080/api/dlr?registrationNumber=2005202112345
+```
+
+### 6. Search by CERSAI API
+```bash
+GET http://localhost:8080/api/cersai
+Example: GET http://localhost:8080/api/cersai?propertyId=1100012345
+```
+
+### 7. Search by MCA21 API
+```bash
+GET http://localhost:8080/api/mca21
+Example: GET http://localhost:8080/api/mca21?registrationNumber=2012202322222
+```
+
 ## Standard Response Format
 All endpoints return properties in this format:
 ```json

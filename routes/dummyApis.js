@@ -17,74 +17,77 @@ function findProperty(query) {
 
 // /api/doris
 router.get('/doris', (req, res) => {
-    const property = findProperty(req.query);
-    if(property) {
-        res.json({
-            source: 'DORIS',
-            propertyId: property.propertyId,
-            registrationNumber: property.registrationNumber,
-            ownerName: property.ownerName,
-            registrationDate: property.registrationDate,
-            encumbrances: property.encumbrances,
-            loanStatus: 'No Loan'
-        });
-    } else {
-        res.status(404).json({ error: 'Property not found' });
-    }
+  const dorisData = require('../data/DORSIData.json');
+  const cersaiData = require('../data/CERSAIData.json');
+  // Combine the two datasets
+  const combinedData = dorisData.concat(cersaiData);
+  const { propertyId, registrationNumber } = req.query;
+  const property = combinedData.find(p =>
+    (propertyId && p.propertyId === propertyId) ||
+    (registrationNumber && p.registrationNumber === registrationNumber)
+  );
+  if(property) {
+    res.json(property);
+  } else {
+    res.status(404).json({ error: "Property not found" });
+  }
 });
 
 // /api/dlr
 router.get('/dlr', (req, res) => {
-    const property = findProperty(req.query);
+    const dlrData = require('../data/DLRData.json');
+    const { propertyId, registrationNumber } = req.query;
+    const property = dlrData.find(p =>
+         (propertyId && p.propertyId === propertyId) ||
+         (registrationNumber && p.registrationNumber === registrationNumber)
+    );
     if(property) {
-        res.json({
-            source: 'DLR',
-            propertyId: property.propertyId,
-            registrationNumber: property.registrationNumber,
-            ownerName: property.ownerName,
-            registrationDate: property.registrationDate,
-            encumbrances: property.encumbrances,
-            loanStatus: 'Loan Approved'
-        });
+         res.json(property);
     } else {
-        res.status(404).json({ error: 'Property not found' });
+         res.status(404).json({ error: "Property not found" });
     }
 });
 
 // /api/cersai
 router.get('/cersai', (req, res) => {
-    const property = findProperty(req.query);
+    const cersaiData = require('../data/CERSAIData.json');
+    const { propertyId, registrationNumber } = req.query;
+    const property = cersaiData.find(p =>
+         (propertyId && p.propertyId === propertyId) ||
+         (registrationNumber && p.registrationNumber === registrationNumber)
+    );
     if(property) {
-        res.json({
-            source: 'CERSAI',
-            propertyId: property.propertyId,
-            registrationNumber: property.registrationNumber,
-            ownerName: property.ownerName,
-            registrationDate: property.registrationDate,
-            encumbrances: property.encumbrances,
-            loanStatus: 'Pending Discharge'
-        });
+         res.json(property);
     } else {
-        res.status(404).json({ error: 'Property not found' });
+         res.status(404).json({ error: "Property not found" });
     }
 });
 
-// /api/mca21
+// Updated /api/mca21 endpoint to search in both MCA21Data.json and CERSAIData.json
 router.get('/mca21', (req, res) => {
-    const property = findProperty(req.query);
-    if(property) {
-        res.json({
-            source: 'MCA21',
-            propertyId: property.propertyId,
-            registrationNumber: property.registrationNumber,
-            ownerName: property.ownerName,
-            registrationDate: property.registrationDate,
-            encumbrances: property.encumbrances,
-            loanStatus: 'Loan Under Process'
-        });
-    } else {
-        res.status(404).json({ error: 'Property not found' });
-    }
+  let mca21Data = [];
+  try {
+    mca21Data = require('../data/MCA21Data.json');
+  } catch (e) {
+    // If MCA21Data.json does not exist, use empty array
+    mca21Data = [];
+  }
+  const cersaiData = require('../data/CERSAIData.json');
+  // Combine MCA21 and matching CERSAI properties
+  // (Here we include all MCA21Data along with CERSAIData as fallback for MCA21 queries)
+  const combinedData = mca21Data.concat(cersaiData);
+  
+  const { propertyId, registrationNumber } = req.query;
+  const property = combinedData.find(p =>
+    (propertyId && p.propertyId === propertyId) ||
+    (registrationNumber && p.registrationNumber === registrationNumber)
+  );
+  
+  if(property) {
+    return res.json(property);
+  } else {
+    return res.status(404).json({ error: "Property not found" });
+  }
 });
 
 module.exports = router;
