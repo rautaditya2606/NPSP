@@ -4,7 +4,7 @@ const path = require('path');
 const ruralProperties = require(path.join(__dirname, '../data/ruralProperties.json'));
 const urbanProperties = require(path.join(__dirname, '../data/urbanProperties.json'));
 
-// Dummy response converter to common format
+
 function toCommonFormat(source, data) {
     return {
         propertyId: data.propertyId || "",
@@ -15,10 +15,8 @@ function toCommonFormat(source, data) {
     };
 }
 
-// DORIS API mock endpoint
+
 router.get('/doris', (req, res) => {
-    // Design request format if required: e.g. query parameters
-    // Return dummy data in common format
     const dummyData = {
         propertyId: "DORIS-12345",
         ownerName: "John Doe",
@@ -28,7 +26,7 @@ router.get('/doris', (req, res) => {
     res.json(toCommonFormat("DORIS", dummyData));
 });
 
-// DLR API mock endpoint
+
 router.get('/dlr', (req, res) => {
     const dummyData = {
         propertyId: "DLR-98765",
@@ -39,7 +37,7 @@ router.get('/dlr', (req, res) => {
     res.json(toCommonFormat("DLR", dummyData));
 });
 
-// CERSAI API mock endpoint
+
 router.get('/cersai', (req, res) => {
     const dummyData = {
         propertyId: "CERSAI-55555",
@@ -50,7 +48,7 @@ router.get('/cersai', (req, res) => {
     res.json(toCommonFormat("CERSAI", dummyData));
 });
 
-// MCA21 API mock endpoint
+
 router.get('/mca21', (req, res) => {
     const dummyData = {
         propertyId: "MCA21-22222",

@@ -4,269 +4,216 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= __('Property Search') %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/css/jquery.ime.min.css">
   <style>
-    :root {
-      --primary: #4361ee;
-      --secondary: #3f37c9;
-      --accent: #4895ef;
-      --light: #f8f9fa;
-      --dark: #212529;
-    }
-    
     body {
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      position: relative;
-      overflow-x: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      background: #f3f4f6;
     }
     
     .page-wrapper {
-      width: 100%;
       max-width: 1200px;
+      margin: 0 auto;
       padding: 20px;
     }
-    
-    .search-card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      padding: 40px;
-      margin: 40px auto;
-      max-width: 700px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .search-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-    
-    .search-card h1 {
-      font-size: 2.2rem;
-      margin-bottom: 1.5rem;
-      color: var(--dark);
-      font-weight: 700;
-      position: relative;
-      display: inline-block;
-    }
-    
-    .search-card h1:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -8px;
-      height: 4px;
-      width: 60px;
-      background: var(--primary);
-      border-radius: 2px;
-    }
-    
-    .form-label {
-      font-weight: 600;
-      color: #495057;
-      margin-bottom: 0.5rem;
-    }
-    
-    .form-control, .form-select {
-      border-radius: 12px;
-      padding: 12px 16px;
-      border: 1px solid #ced4da;
-      transition: all 0.3s ease;
-      box-shadow: none;
-    }
-    
-    .form-control:focus, .form-select:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
-    }
-    
-    .search-btn {
-      background: linear-gradient(45deg, var(--primary), var(--accent));
+
+    /* Government header styles */
+    .gov-header {
+      background: #0b3558;
       color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 12px 24px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+      padding: 0.5rem 1rem;
+    }
+
+    .search-card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      padding: 2rem;
       position: relative;
       overflow: hidden;
-      z-index: 1;
+      border: 1px solid #e5e7eb;
     }
-    
-    .search-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(67, 97, 238, 0.4);
-    }
-    
-    .search-btn:before {
+
+    .search-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 0;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
-      z-index: -1;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, #ff9933, white, #138808);
     }
-    
-    .search-btn:hover:before {
-      width: 100%;
+
+    .method-btn {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: all 0.2s;
     }
-    
-    .search-btn i {
-      margin-right: 8px;
+
+    .method-btn.active {
+      background: #1d4ed8;
+      color: white;
+      border-color: #1d4ed8;
     }
-    
-    /* Decorative elements */
-    .shape {
-      position: absolute;
-      z-index: -1;
-      opacity: 0.6;
+
+    .form-control, .form-select {
+      border-radius: 0.5rem;
+      border: 1px solid #e5e7eb;
+      padding: 0.75rem 1rem;
     }
-    
-    .shape-1 {
-      top: -80px;
-      right: -50px;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, var(--accent), var(--primary));
-      filter: blur(30px);
+
+    .form-control:focus {
+      border-color: #1d4ed8;
+      box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.1);
     }
-    
-    .shape-2 {
-      bottom: -100px;
-      left: -80px;
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      filter: blur(40px);
+
+    .search-btn {
+      background: #1d4ed8;
+      color: white;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.2s;
     }
-    
-    .shape-3 {
-      top: 50%;
-      right: -150px;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: var(--accent);
-      filter: blur(20px);
+
+    .search-btn:hover {
+      background: #1e40af;
     }
-    
-    /* Input group enhancements */
-    .input-group-text {
-      background-color: #f8f9fa;
-      border-radius: 12px 0 0 12px;
-      border-right: none;
+
+    .alert-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
     }
-    
-    .input-group .form-control {
-      border-radius: 0 12px 12px 0;
+
+    .alert {
+      transform: translateX(150%);
+      transition: transform 0.3s ease;
+      margin-bottom: 10px;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .search-card {
-        padding: 30px 20px;
-      }
-      
-      .search-card h1 {
-        font-size: 1.8rem;
-      }
+
+    .alert.show {
+      transform: translateX(0);
     }
-    
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .alert-danger {
+      background: linear-gradient(45deg, #ff4b4b, #ff6b6b);
+      color: white;
     }
-    
-    .fade-in {
-      opacity: 0; /* ensure hidden until animation begins */
-      animation: fadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+
+    .alert button.close {
+      color: white;
+      opacity: 0.8;
+      text-shadow: none;
     }
-    
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
-    .delay-3 { animation-delay: 0.6s; }
-    .delay-4 { animation-delay: 0.8s; }
   </style>
-  <!-- Include jQuery and jquery.ime CSS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/css/jquery.ime.min.css">
 </head>
 <body>
-  <div class="page-wrapper">
-    <div class="search-card">
-      <!-- Decorative shapes -->
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-      
-      <h1 class="mb-4 fade-in"><%= __('Property Search') %></h1>
-      
-      <form action="/search" method="POST" class="row g-3">
-        <div class="col-12 fade-in delay-1">
-          <label for="method" class="form-label"><%= __('Search By:') %></label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-search"></i></span>
-            <select name="method" id="method" class="form-select">
-              <option value="propertyId"><%= __('Property ID') %></option>
-              <option value="ownerName"><%= __("Owner's Name") %></option>
-              <option value="registrationNumber"><%= __('Registration Number') %></option>
-            </select>
-          </div>
+  <!-- Government Header -->
+  <header class="gov-header">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/emblem.png" alt="Emblem" class="h-6">
+        <span>भारत सरकार | Government of India</span>
+      </div>
+      <div class="d-none d-sm-block">
+        <span class="fst-italic">Ministry of Digital Infrastructure & Services</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto mt-8 px-4">
+    <!-- Title and Description -->
+    <div class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-gray-900 mb-2 tracking-tight">
+        <%= __('Property Verification Portal') %>
+      </h1>
+      <p class="text-gray-600 text-base max-w-xl mx-auto">
+        <%= __("Government of India's official platform for property record verification.") %>
+      </p>
+    </div>
+
+    <!-- Search Card -->
+    <div class="bg-white shadow-2xl rounded-xl p-8 border border-gray-200 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#0b3558] via-[#0a58ca] to-[#138808]"></div>
+
+      <form action="/search" method="POST" class="max-w-2xl mx-auto space-y-8">
+        <!-- Tabs -->
+        <div class="flex flex-col sm:flex-row justify-center gap-3 mb-8">
+          <button type="button" onclick="showTab('name')" class="tab-btn bg-blue-50 text-blue-900 px-6 py-3 rounded-lg border border-blue-200 font-medium flex items-center gap-2" data-value="ownerName">
+            <i class="fas fa-user"></i> <%= __('By Name') %>
+          </button>
+          <button type="button" onclick="showTab('id')" class="tab-btn bg-gray-50 text-gray-800 px-6 py-3 rounded-lg border border-gray-300 font-medium flex items-center gap-2" data-value="propertyId">
+            <i class="fas fa-hashtag"></i> <%= __('By Property ID') %>
+          </button>
+          <button type="button" onclick="showTab('reg')" class="tab-btn bg-gray-50 text-gray-800 px-6 py-3 rounded-lg border border-gray-300 font-medium flex items-center gap-2" data-value="registrationNumber">
+            <i class="fas fa-file-alt"></i> <%= __('By Registration') %>
+          </button>
         </div>
-        
-        <!-- Default field for propertyId and registrationNumber -->
-        <div id="defaultField" class="col-12 fade-in delay-2">
-          <label for="searchValue" class="form-label"><%= __('Enter Value:') %></label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
-            <input type="text" name="searchValue" id="searchValue" class="form-control" placeholder="<%= __('Enter search value here...') %>">
+        <input type="hidden" name="method" id="method" value="ownerName">
+
+        <!-- Tab Content -->
+        <div class="space-y-8">
+          <!-- Name Tab -->
+          <div id="tab-name" class="tab-content">
+            <div class="space-y-4">
+              <div class="flex gap-4">
+                <div class="w-1/2">
+                  <label class="block text-sm font-medium text-gray-700"><%= __('First Name') %></label>
+                  <input type="text" name="firstName" id="firstName" placeholder="<%= __('Enter first name') %>" class="w-full border rounded-lg px-4 py-3 border-gray-200 focus:ring-blue-300 focus:outline-none" />
+                </div>
+                <div class="w-1/2">
+                  <label class="block text-sm font-medium text-gray-700"><%= __('Last Name') %></label>
+                  <input type="text" name="lastName" id="lastName" placeholder="<%= __('Enter last name') %>" class="w-full border rounded-lg px-4 py-3 border-gray-200 focus:ring-blue-300 focus:outline-none" />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        
-        <!-- Fields for ownerName search -->
-        <div id="nameFields" class="col-md-6 fade-in delay-2" style="display:none;">
-          <label for="firstName" class="form-label"><%= __('First Name:') %></label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
-            <input type="text" name="firstName" id="firstName" class="form-control" placeholder="<%= __('First name') %>">
+
+          <!-- Property ID & Registration Tabs -->
+          <div id="tab-id" class="tab-content hidden">
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700"><%= __('Property ID (10 digits)') %></label>
+              <input type="text" name="searchValue" placeholder="<%= __('E.g. 1234567890') %>" class="w-full border rounded-lg px-4 py-3 border-gray-200 focus:ring-blue-300 focus:outline-none" />
+            </div>
           </div>
-        </div>
-        
-        <div id="lastNameField" class="col-md-6 fade-in delay-3" style="display:none;">
-          <label for="lastName" class="form-label"><%= __('Last Name:') %></label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
-            <input type="text" name="lastName" id="lastName" class="form-control" placeholder="<%= __('Last name') %>">
+
+          <div id="tab-reg" class="tab-content hidden">
+            <div class="space-y-4">
+              <label class="block text-sm font-medium text-gray-700"><%= __('Registration Number (13 digits)') %></label>
+              <input type="text" name="searchValue" placeholder="<%= __('E.g. 1234567890123') %>" class="w-full border rounded-lg px-4 py-3 border-gray-200 focus:ring-blue-300 focus:outline-none" />
+            </div>
           </div>
-        </div>
-        
-        <div class="col-12 mt-4 fade-in delay-4">
-          <button type="submit" class="search-btn w-100">
-            <i class="fas fa-search"></i> <%= __('Search') %>
+
+          <!-- CAPTCHA -->
+          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+
+          <button type="submit" class="w-full bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-800 flex items-center justify-center gap-2">
+            <i class="fas fa-search"></i> <%= __('Search Property') %>
           </button>
         </div>
       </form>
     </div>
-  </div>
+  </main>
+
+  <!-- Toast Alert -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-red-50 text-red-800 border border-red-300 px-4 py-3 rounded-lg shadow-lg hidden transition-all duration-300 z-50"></div>
 
   <!-- Include jquery.ime scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.min.js"></script>
@@ -274,39 +221,68 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.inputmethods.min.js"></script>
 
   <script>
+    // Tab switching functionality
+    function showTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+      document.getElementById('method').value = tab === 'name' ? 'ownerName' : tab === 'id' ? 'propertyId' : 'registrationNumber';
+    }
+
+    // Initialize IME
     $(document).ready(function(){
-      console.log('Document ready: initializing IME for firstName and lastName');
-      // Initialize transliteration for firstName input
-      if($('#firstName').ime){
-        $('#firstName').ime({imePath: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/'});
-        $('#firstName').ime("option", "lang", "hi");
-        console.log('IME initialized for firstName with lang=hi');
-      } else {
-        console.error('jquery.ime is not loaded for firstName');
-      }
+      $('#firstName, #lastName').ime({
+        imePath: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/',
+        languages: ['hi'],
+      });
+    });
+
+    // Form validation
+    document.querySelector('form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const method = document.getElementById('method').value;
       
-      // Initialize transliteration for lastName input
-      if($('#lastName').ime){
-        $('#lastName').ime({imePath: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/'});
-        $('#lastName').ime("option", "lang", "hi");
-        console.log('IME initialized for lastName with lang=hi');
-      } else {
-        console.error('jquery.ime is not loaded for lastName');
+      // Validate captcha first
+      const captchaResponse = grecaptcha.getResponse();
+      if (!captchaResponse) {
+        showToast("Please complete the CAPTCHA verification");
+        return;
       }
-    });
-    
-    // Toggle between fields
-    document.getElementById('method').addEventListener('change', function() {
-      if(this.value === 'ownerName') {
-        document.getElementById('nameFields').style.display = 'block';
-        document.getElementById('lastNameField').style.display = 'block';
-        document.getElementById('defaultField').style.display = 'none';
+
+      // Existing validation logic
+      if (method === 'ownerName') {
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        if (!firstName || !lastName) {
+          showToast('Please fill in both first and last name');
+          return;
+        }
       } else {
-        document.getElementById('nameFields').style.display = 'none';
-        document.getElementById('lastNameField').style.display = 'none';
-        document.getElementById('defaultField').style.display = 'block';
+        const searchValue = document.querySelector(`#tab-${method === 'propertyId' ? 'id' : 'reg'} input`).value;
+        if (!searchValue) {
+          showToast('Please enter a search value');
+          return;
+        }
+        if (method === 'propertyId' && !/^\d{10}$/.test(searchValue)) {
+          showToast('Property ID must be exactly 10 digits');
+          return;
+        }
+        if (method === 'registrationNumber' && !/^\d{13}$/.test(searchValue)) {
+          showToast('Registration Number must be exactly 13 digits');
+          return;
+        }
       }
+
+      // If validation passes, submit the form
+      this.submit();
     });
+
+    // Toast functionality
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 5000);
+    }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
