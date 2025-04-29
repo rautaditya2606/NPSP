@@ -13,7 +13,8 @@
       "latitude": "28.6328",
       "longitude": "77.2197",
       "encumbrances": ["Maintenance Due"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "4110023456",
@@ -29,7 +30,8 @@
       "latitude": "18.5069",
       "longitude": "73.8076",
       "encumbrances": ["Gift Deed"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "7000067890",
@@ -45,7 +47,8 @@
       "latitude": "22.5815",
       "longitude": "88.4133",
       "encumbrances": ["Will Registered"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "5000061234",
@@ -61,7 +64,8 @@
       "latitude": "17.4401",
       "longitude": "78.3489",
       "encumbrances": ["Power of Attorney"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "6000062345",
@@ -77,7 +81,8 @@
       "latitude": "13.0067",
       "longitude": "80.2586",
       "encumbrances": ["Lease Agreement"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "3900083456",
@@ -93,7 +98,8 @@
       "latitude": "22.3109",
       "longitude": "73.1928",
       "encumbrances": ["Business Mortgage"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "4110034567",
@@ -109,7 +115,8 @@
       "latitude": "18.5928",
       "longitude": "73.7389",
       "encumbrances": ["Maintenance Due"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "1100024567",
@@ -125,7 +132,8 @@
       "latitude": "28.5245",
       "longitude": "77.2065",
       "encumbrances": ["Joint Ownership"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "7000075678",
@@ -141,7 +149,8 @@
       "latitude": "22.5308",
       "longitude": "88.3349",
       "encumbrances": ["Heritage Property"],
-      "type": "individual"
+      "type": "individual",
+      "propertyZone": "urban"
     },
     {
       "propertyId": "5000076789",
@@ -157,6 +166,7 @@
       "latitude": "17.4254",
       "longitude": "78.4085",
       "encumbrances": ["Power of Attorney"],
-      "type": "commercial"
+      "type": "commercial",
+      "propertyZone": "urban"
     }
 ]

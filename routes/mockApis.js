@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const ruralProperties = require(path.join(__dirname, '../data/ruralProperties.json'));
-const urbanProperties = require(path.join(__dirname, '../data/urbanProperties.json'));
+const ruralProperties = require(path.join(__dirname, '../data/DLRData.json'));
+const urbanProperties = require(path.join(__dirname, '../data/DORSIData.json'));
 
 
 function toCommonFormat(source, data) {

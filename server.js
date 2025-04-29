@@ -17,13 +17,13 @@ function loadData(fileName) {
 }
 
 // Load all data sources from the data folder
-const ruralData = loadData('ruralProperties.json');
-const urbanData = loadData('urbanProperties.json');
+const dlrData = loadData('DLRData.json'); // Changed
+const dorsiData = loadData('DORSIData.json'); // Changed
 const cersaiData = loadData('CERSAIData.json');
 const mcaData = loadData('MCA21Data.json');
 
 // Combine the data using the transformation functions
-const unifiedData = combineData(ruralData, urbanData, cersaiData, mcaData);
+const unifiedData = combineData(dlrData, dorsiData, cersaiData, mcaData);
 
 // API to search by propertyId
 app.get('/api/property/:propertyId', (req, res) => {
@@ -52,7 +52,12 @@ app.get('/api/registration/:registrationNumber', (req, res) => {
 
 // API to retrieve all property data
 app.get('/api/properties', (req, res) => {
-  res.json(unifiedData);
+  try {
+    const allProperties = [...dlrData, ...dorsiData, ...cersaiData, ...mcaData];
+    res.json(allProperties);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 const PORT = process.env.PORT || 3000;

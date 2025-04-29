@@ -2,8 +2,8 @@ const fs = require('fs');
 const { combineData, saveDataToFile, mergePropertiesFiles } = require('./transformData');
 
 // Use absolute paths for the JSON files
-const ruralData = JSON.parse(fs.readFileSync('/home/adityaraut/Documents/hackathon_property/data/ruralProperties.json', 'utf-8'));
-const urbanData = JSON.parse(fs.readFileSync('/home/adityaraut/Documents/hackathon_property/data/urbanProperties.json', 'utf-8'));
+const ruralData = JSON.parse(fs.readFileSync('/home/adityaraut/Documents/hackathon_property/data/DLRData.json', 'utf-8')); // Changed
+const urbanData = JSON.parse(fs.readFileSync('/home/adityaraut/Documents/hackathon_property/data/DORSIData.json', 'utf-8')); // Changed
 const cersaiData = JSON.parse(fs.readFileSync('/home/adityaraut/Documents/hackathon_property/data/CERSAIData.json', 'utf-8'));
 const mcaData = JSON.parse(fs.readFileSync('/home/adityaraut/Documents/hackathon_property/data/MCA21Data.json', 'utf-8'));
 

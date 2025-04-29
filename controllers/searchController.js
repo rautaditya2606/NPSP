@@ -14,8 +14,8 @@ exports.processSearch = (req, res) => {
   const { method, searchValue, firstName, lastName } = req.body;
   
   // Load both datasets
-  const urbanProps = loadJSON('data/urbanProperties.json');
-  const ruralProps = loadJSON('data/ruralProperties.json');
+  const urbanProps = loadJSON('data/DORSIData.json'); // Changed from urbanProperties.json
+  const ruralProps = loadJSON('data/DLRData.json'); // Changed from ruralProperties.json
   
   // Always search through combined datasets
   const dataset = urbanProps.concat(ruralProps);

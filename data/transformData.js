@@ -10,10 +10,11 @@ function transformRuralData(data) {
   return {
     propertyId: data.propertyId || 'N/A',
     ownerName: data.ownerName || 'N/A',
-    registrationNumber: data.registrationNumber || 'N/A',  // new field added
+    registrationNumber: data.registrationNumber || 'N/A',
     ownership_type: data.type || 'individual',
     address: data.address || 'Not available',
     registrationDate: data.registrationDate || 'N/A',
+    propertyZone: data.propertyZone || 'rural',
     source: 'rural'
   };
 }
@@ -23,10 +24,11 @@ function transformUrbanData(data) {
   return {
     property_id: data.propertyId || 'N/A',
     owner_name: data.ownerName || 'N/A',
-    registrationNumber: data.registrationNumber || 'N/A',  // new field added
+    registrationNumber: data.registrationNumber || 'N/A',
     ownership_type: data.type || 'individual',
     address: data.address || 'Not available',
     registration_date: data.registrationDate || 'N/A',
+    propertyZone: data.propertyZone || 'urban',
     source: 'urban'
   };
 }
@@ -36,10 +38,11 @@ function transformCERSAIData(data) {
   return {
     property_id: data.propertyId || 'N/A',
     owner_name: data.ownerName || 'N/A',
-    registrationNumber: data.registrationNumber || 'N/A',  // new field added
+    registrationNumber: data.registrationNumber || 'N/A',
     ownership_type: data.type || 'individual',
     address: data.address || 'Not Available',
     registration_date: data.registrationDate || 'N/A',
+    propertyZone: data.propertyZone || (data.subDistrict?.includes('Rural') ? 'rural' : 'urban'),
     source: 'CERSAI'
   };
 }
@@ -49,10 +52,11 @@ function transformMCA21Data(data) {
   return {
     property_id: data.propertyId || 'N/A',
     owner_name: data.ownerName || 'N/A',
-    registrationNumber: data.registrationNumber || 'N/A',  // new field added
+    registrationNumber: data.registrationNumber || 'N/A',
     ownership_type: data.type || 'individual',
     address: data.address || 'Not Available',
     registration_date: data.registrationDate || 'N/A',
+    propertyZone: data.propertyZone || (data.subDistrict?.includes('Rural') ? 'rural' : 'urban'),
     source: 'MCA21'
   };
 }

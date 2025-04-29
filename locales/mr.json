@@ -29,5 +29,8 @@
 	"Product": "Product",
 	"Services": "Services",
 	"About Us": "About Us",
-	"News": "News"
+	"News": "News",
+	"Enter search value here...": "Enter search value here...",
+	"First name": "First name",
+	"Last name": "Last name"
 }

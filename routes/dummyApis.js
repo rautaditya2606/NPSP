@@ -3,8 +3,8 @@ const router = express.Router();
 const path = require('path');
 
 // Load database files
-const ruralProperties = require(path.join(__dirname, '../data/ruralProperties.json'));
-const urbanProperties = require(path.join(__dirname, '../data/urbanProperties.json'));
+const ruralProperties = require(path.join(__dirname, '../data/DLRData.json')); // Changed
+const urbanProperties = require(path.join(__dirname, '../data/DORSIData.json')); // Changed
 const allProperties = [].concat(ruralProperties, urbanProperties);
 
 // Helper: find property by propertyId or registrationNumber
