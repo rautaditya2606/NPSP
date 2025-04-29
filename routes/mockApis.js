@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const ruralProperties = require(path.join(__dirname, '../data/ruralProperties.json'));
+const urbanProperties = require(path.join(__dirname, '../data/urbanProperties.json'));
 
 // Dummy response converter to common format
 function toCommonFormat(source, data) {
@@ -56,6 +59,12 @@ router.get('/mca21', (req, res) => {
         encumbrances: ["Corporate Charge"]
     };
     res.json(toCommonFormat("MCA21", dummyData));
+});
+
+// New endpoint to display the whole database (rural + urban properties)
+router.get('/all-properties', (req, res) => {
+    const allProperties = [].concat(ruralProperties, urbanProperties);
+    res.json(allProperties);
 });
 
 module.exports = router;

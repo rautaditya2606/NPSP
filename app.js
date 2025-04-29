@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const i18n = require('i18n');
 const app = express();
 const searchRoutes = require('./routes/search');
+const dummyApis = require('./routes/dummyApis');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -70,6 +71,10 @@ app.use('/', searchRoutes);
 // Mount the mock API endpoints under /api/mock
 const mockApis = require('./routes/mockApis');
 app.use('/api/mock', mockApis);
+
+// Mount dummy API routes under /api, so the endpoints are:
+// /api/doris, /api/dlr, /api/cersai, /api/mca21
+app.use('/api', dummyApis);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
