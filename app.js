@@ -70,6 +70,20 @@ app.get('/test-translations', (req, res) => {
   });
 });
 
+// Add route for showProperty
+app.get('/showProperty', (req, res) => {
+  const propertyId = req.query.propertyId;
+  // Load data from multiple sources
+  const cersaiData = require('./data/CERSAIData.json');
+  const dlrData = require('./data/DLRData.json');
+  // Search in CERSAIData first, then DLRData if not found
+  let property = cersaiData.find(p => p.propertyId === propertyId);
+  if (!property) {
+    property = dlrData.find(p => p.propertyId === propertyId);
+  }
+  res.render('showProperty', { property: property, locale: req.getLocale(), __: res.__ });
+});
+
 app.use('/', searchRoutes);
 
 // Mount the mock API endpoints under /api/mock

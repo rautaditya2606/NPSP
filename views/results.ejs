@@ -5,208 +5,731 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= __('Property Search Results') %></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <style>
+    :root {
+      --primary-blue: #4169e1;
+      --card-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    
     body {
-      background: #f6f8fb;
-    }
-    .navbar {
-      border-radius: 20px;
-      margin: 24px 0 16px 0;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
-      background: #fff;
-    }
-    .search-bar {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-    .map-section {
-      background: #fff;
-      border-radius: 24px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      padding: 16px;
-      margin-bottom: 32px;
-    }
-    #map {
-      height: 350px;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    }
-    .property-cards {
-      display: flex;
-      gap: 24px;
-      overflow-x: auto;
-      padding-bottom: 16px;
-    }
-    .property-card {
-      min-width: 320px;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      margin: 0;
       padding: 0;
-      margin-bottom: 16px;
-      border: none;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Inter', -apple-system, sans-serif;
     }
-    .property-card img {
-      border-radius: 18px 18px 0 0;
+
+    .main-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: white;
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      z-index: 1000;
+    }
+
+    .nav-btn {
+      background: #f8f9fa;
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    .nav-btn.active {
+      background: var(--primary-blue);
+      color: white;
+    }
+
+    .map-container {
+      flex: 1;
+      position: relative;
       width: 100%;
-      height: 180px;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .property-cards-container {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      z-index: 2;
+      overflow-x: auto;
+      display: flex;
+      gap: 20px;
+      padding: 4px;
+    }
+
+    .property-card {
+      flex: 0 0 auto;
+      width: 320px;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .property-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .property-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center;
+      background-color: #f3f4f6;
+    }
+
+    .property-image-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .tag-rent {
+      background: var(--primary-blue);
+      color: white;
+    }
+
+    .tag-sale {
+      background: #ff7043;
+      color: white;
+    }
+
+    .property-details {
+      padding: 16px;
+    }
+
+    .property-price {
+      color: var(--primary-blue);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .property-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #1a1a1a;
+    }
+
+    .property-location {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .property-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .feature-icon {
+      color: var(--primary-blue);
+      font-size: 1rem;
+    }
+
+    .map-controls {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      z-index: 2;
+      display: flex;
+      gap: 12px;
+    }
+
+    .map-control-btn {
+      background: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .map-control-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Custom scrollbar for property cards container */
+    .property-cards-container::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .property-cards-container::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.4);
+      border-radius: 10px;
+    }
+
+    .property-cards-container::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+    }
+
+    /* Add these styles to your existing CSS */
+    .leaflet-popup-content-wrapper {
+      padding: 0;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    
+    .leaflet-popup-content {
+      margin: 0;
+      width: 280px !important;
+    }
+
+    .popup-content {
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .popup-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .popup-details {
+      padding: 16px;
+    }
+
+    .popup-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .popup-address {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .popup-features {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* Add these modal styles to your CSS */
+    .property-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .property-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      margin: auto;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .property-modal.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      position: relative;
+      height: 300px;
+    }
+
+    .modal-header img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
-    .property-card .card-body {
-      padding: 18px 18px 12px 18px;
-    }
-    .tag {
+
+    .modal-close {
       position: absolute;
       top: 16px;
-      left: 16px;
-      background: #ffb366;
-      color: #fff;
-      font-size: 0.85rem;
-      padding: 4px 12px;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-    .tag.rent {
-      background: #000000;
-    }
-    .property-meta {
-      font-size: 0.95rem;
-      color: #6c757d;
-      margin-top: 8px;
-    }
-    .property-features {
-      display: flex;
-      gap: 16px;
-      font-size: 0.9rem;
-      color: #6c757d;
-      margin-top: 8px;
-    }
-    .profile-pic {
+      right: 16px;
+      background: white;
+      border: none;
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .modal-close:hover {
+      transform: scale(1.1);
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      max-height: calc(90vh - 300px);
+    }
+
+    .modal-section {
+      margin-bottom: 24px;
+    }
+
+    .modal-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .property-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+    }
+
+    .info-icon {
+      width: 32px;
+      height: 32px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-blue);
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg px-4 py-2">
-    <!-- Back Icon added -->
-    <a href="/search" class="me-3 text-decoration-none">
-      <i class="bi bi-arrow-left"></i>
-    </a>
-    <a class="navbar-brand fw-bold" href="/"><%= __('NPSP') %></a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mx-auto">
-        <!-- <li class="nav-item"><a class="nav-link active" href="#"><%= __('Find Home') %></a></li>
-        <li class="nav-item"><a class="nav-link" href="#"><%= __('Product') %></a></li>
-        <li class="nav-item"><a class="nav-link" href="#"><%= __('Services') %></a></li>
-        <li class="nav-item"><a class="nav-link" href="#"><%= __('About Us') %></a></li>
-        <li class="nav-item"><a class="nav-link" href="#"><%= __('News') %></a></li> -->
-      </ul>
-      <div class="d-flex align-items-center gap-3">
-        <img src="https://i.postimg.cc/PxTybjYS/b7xwuj.jpg" class="profile-pic" alt="<%= __('Profile') %>">
-        <span class="fw-semibold"><%= __('Hi') %>, <%= results[0].ownerName %></span>
+  <div class="main-container">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <div class="d-flex align-items-center gap-4">
+          <a href="/search" class="text-decoration-none text-dark">
+            <i class="bi bi-arrow-left fs-5"></i>
+          </a>
+          <button class="nav-btn active">
+            <i class="bi bi-map me-2"></i>Map
+          </button>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <img src="https://i.postimg.cc/PxTybjYS/b7xwuj.jpg" class="rounded-circle" width="36" height="36" alt="Profile">
+          <span class="fw-medium"><%= results[0].ownerName %></span>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- Results Count & Sort -->
-  <div class="container d-flex justify-content-between align-items-center mb-3">
-    <div>
-      <span class="fs-3 fw-bold text-primary"><%= results.length %></span>
-      <span class="fs-5"><%= __('Result Found') %></span>
-      <% if (results.length > 0) { %>
-        <div class="text-muted"><%= __('In') %> <%= results[0].cityOrVillage %>, <%= results[0].district %></div>
-      <% } else { %>
-        <div class="text-muted"><%= __('No location found') %></div>
-      <% } %>
+    <!-- Map Container -->
+    <div class="map-container">
+      <div id="map"></div>
+      
+      <!-- Map Controls -->
+      <div class="map-controls">
+        <button class="map-control-btn">
+          <i class="bi bi-plus-lg"></i>
+        </button>
+        <button class="map-control-btn">
+          <i class="bi bi-dash-lg"></i>
+        </button>
+      </div>
+
+      <!-- Property Cards -->
+      <div class="property-cards-container">
+        <% results.forEach((property, index) => { %>
+          <div class="property-card" onclick="showPropertyDetails(<%= index %>)">
+            <div class="property-image-container">
+              <img 
+                src="<%= property.imageUrl || 'https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg' %>" 
+                class="property-image"
+                alt="<%= property.name || 'Property' %>"
+                onerror="this.onerror=null; this.src='https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';"
+              >
+            </div>
+            <div class="property-details">
+              <h3 class="property-title"><%= property.name || property.ownerName %></h3>
+              <div class="property-location">
+                <i class="bi bi-geo-alt"></i>
+                <%= property.address %>
+              </div>
+              <div class="property-features">
+                <div class="feature-item">
+                  <i class="bi bi-rulers feature-icon"></i>
+                  <%= property.squareFeet || 'N/A' %> sqft
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
     </div>
   </div>
 
-  <!-- Map Section -->
-  <div class="container map-section mb-4">
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <div>
-        <button class="btn btn-primary btn-sm me-2"><%= __('Map') %></button>
+  <div class="property-modal" id="propertyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img id="modalImage" src="" alt="Property">
+        <button class="modal-close" onclick="closePropertyModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
-      <div>
-        <button class="btn btn-light btn-sm"><i class="bi bi-arrows-fullscreen"></i></button>
-      </div>
-    </div>
-    <div id="map"></div>
-  </div>
+      <div class="modal-body">
+        <h2 id="modalTitle" class="property-title mb-2"></h2>
+        <div id="modalAddress" class="property-location mb-4"></div>
+        
+        <div class="modal-section">
+          <div class="modal-section-title">Property Details</div>
+          <div class="property-info-grid">
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-rulers"></i>
+              </div>
+              <div>
+                <div class="text-muted">Area</div>
+                <div id="modalArea"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-geo-alt"></i>
+              </div>
+              <div>
+                <div class="text-muted">State</div>
+                <div id="modalState"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-geo"></i>
+              </div>
+              <div>
+                <div class="text-muted">District</div>
+                <div id="modalDistrict"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-pin-map"></i>
+              </div>
+              <div>
+                <div class="text-muted">Sub District</div>
+                <div id="modalSubDistrict"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-buildings"></i>
+              </div>
+              <div>
+                <div class="text-muted">City/Village</div>
+                <div id="modalCityVillage"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-123"></i>
+              </div>
+              <div>
+                <div class="text-muted">Pincode</div>
+                <div id="modalPincode"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-geo-fill"></i>
+              </div>
+              <div>
+                <div class="text-muted">Coordinates</div>
+                <div id="modalCoordinates"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <!-- Property Cards -->
-  <div class="container property-cards mb-5">
-    <% results.forEach((property, index) => { %>
-      <div class="card property-card position-relative">
-        <img src="<%= results[0].imageUrl || '/images/default-house.jpg' %>" 
-             alt="<%= __('Property Image') %>"
-             onerror="this.src='https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg'">
-        <div class="card-body">
-          <div class="fw-semibold mb-1"><%= property.name || property.ownerName %></div>
-          <div class="property-meta"><%= property.address %></div>
-          <div class="property-features">
-            <span>Sqr feet : <%= results[0].squareFeet || 'Data Not Available'  %></span>
+        <div class="modal-section">
+          <div class="modal-section-title">Registration Information</div>
+          <div class="property-info-grid">
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-person"></i>
+              </div>
+              <div>
+                <div class="text-muted">Owner</div>
+                <div id="modalOwner"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-hash"></i>
+              </div>
+              <div>
+                <div class="text-muted">Property ID</div>
+                <div id="modalPropertyId"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-card-text"></i>
+              </div>
+              <div>
+                <div class="text-muted">Registration No.</div>
+                <div id="modalRegistration"></div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="bi bi-calendar-event"></i>
+              </div>
+              <div>
+                <div class="text-muted">Registration Date</div>
+                <div id="modalRegistrationDate"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Additional Information</div>
+          <div class="property-info-grid">
+            <div class="info-item" style="grid-column: 1 / -1;">
+              <div class="info-icon">
+                <i class="bi bi-exclamation-circle"></i>
+              </div>
+              <div>
+                <div class="text-muted">Encumbrances</div>
+                <div id="modalEncumbrances"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    <% }); %>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize map
-      const map = L.map('map');
+      const map = L.map('map', {
+        zoomControl: false // Disable default zoom controls
+      });
+      
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '© OpenStreetMap contributors'
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
       }).addTo(map);
-      const markerCounts = {};
+
       const markers = [];
+      const markerCounts = {};
+      
       <% results.forEach((property, index) => { %>
-          (function() {
-            let lat = parseFloat("<%= property.latitude %>");
-            let lng = parseFloat("<%= property.longitude %>");
-            const key = lat.toFixed(6) + "_" + lng.toFixed(6);
-            let count = markerCounts[key] || 0;
-            if(count > 0) {
-              lat += count * 0.0001;
-              lng += count * 0.0001;
-            }
-            markerCounts[key] = count + 1;
-            const marker = L.marker([lat, lng])
-              .bindPopup(`
-                  <div class="popup-content">
-                      <h3>${'<%= property.ownerName %>'}</h3>
-                      <p><strong><%= __('Property ID') %>:</strong> ${'<%= property.propertyId %>'}</p>
-                      <p><strong><%= __('Registration') %>:</strong> ${'<%= property.registrationNumber %>'}</p>
-                      <p><strong><%= __('Location') %>:</strong> ${'<%= property.address %>'}</p>
-                      <p><strong><%= __('Coordinates') %>:</strong> ${lat.toFixed(4)}, ${lng.toFixed(4)}</p>
-                  </div>
-              `);
-            markers.push(marker);
-            marker.addTo(map);
-          })();
-      <% }); %>
-      if (markers.length > 0) {
-          const group = new L.featureGroup(markers);
-          const bounds = group.getBounds();
-          if (bounds.isValid() && bounds.getNorthEast().equals(bounds.getSouthWest())) {
-              map.setView(bounds.getCenter(), 15);
-          } else {
-              map.fitBounds(bounds.pad(0.1));
+        (function() {
+          let lat = parseFloat("<%= property.latitude %>");
+          let lng = parseFloat("<%= property.longitude %>");
+          const key = lat.toFixed(6) + "_" + lng.toFixed(6);
+          let count = markerCounts[key] || 0;
+          
+          if(count > 0) {
+            lat += count * 0.0001;
+            lng += count * 0.0001;
           }
+          markerCounts[key] = count + 1;
+
+          // Custom marker icon
+          const markerIcon = L.divIcon({
+            html: `<div style="
+              background-color: white;
+              border: 2px solid #4169e1;
+              border-radius: 50%;
+              width: 32px;
+              height: 32px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            ">
+              <i class="bi bi-house-door" style="color: #4169e1;"></i>
+            </div>`,
+            className: 'custom-marker',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          });
+
+          const marker = L.marker([lat, lng], { icon: markerIcon })
+            .bindPopup(`
+              <div class="popup-content">
+                <img 
+                  src="${'<%= property.imageUrl || "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg" %>'}"
+                  class="popup-image"
+                  onerror="this.onerror=null; this.src='https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';"
+                  alt="${'<%= property.name || "Property" %>'}"
+                >
+                <div class="popup-details">
+                  <div class="popup-title">${'<%= property.name || property.ownerName %>'}</div>
+                  <div class="popup-address">
+                    <i class="bi bi-geo-alt"></i>
+                    ${'<%= property.address %>'}
+                  </div>
+                  <div class="popup-features">
+                    <div>
+                      <i class="bi bi-rulers feature-icon"></i>
+                      ${'<%= property.squareFeet || "N/A" %>'} sqft
+                    </div>
+                    <div>
+                      <i class="bi bi-door-open feature-icon"></i>
+                      ${'<%= property.bedrooms || "4" %>'} Beds
+                    </div>
+                    <div>
+                      <i class="bi bi-droplet feature-icon"></i>
+                      ${'<%= property.bathrooms || "2" %>'} Baths
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `, {
+              maxWidth: 280,
+              className: 'custom-popup'
+            });
+          
+          markers.push(marker);
+          marker.addTo(map);
+        })();
+      <% }); %>
+
+      if (markers.length > 0) {
+        const group = new L.featureGroup(markers);
+        const bounds = group.getBounds();
+        if (bounds.isValid() && bounds.getNorthEast().equals(bounds.getSouthWest())) {
+          map.setView(bounds.getCenter(), 15);
+        } else {
+          map.fitBounds(bounds.pad(0.1));
+        }
+      }
+
+      // Handle map control buttons
+      document.querySelectorAll('.map-control-btn').forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          if (index === 0) map.zoomIn();
+          else if (index === 1) map.zoomOut();
+          // Handle fullscreen toggle if needed
+        });
+      });
+    });
+
+    // Store property data globally
+    const propertyData = <%- JSON.stringify(results) %>;
+    
+    function showPropertyDetails(index) {
+      const property = propertyData[index];
+      const modal = document.getElementById('propertyModal');
+      
+      // Update modal content
+      document.getElementById('modalImage').src = property.imageUrl || 'https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';
+      document.getElementById('modalTitle').textContent = property.name || property.ownerName;
+      document.getElementById('modalAddress').innerHTML = `<i class="bi bi-geo-alt"></i> ${property.address || 'N/A'}`;
+      document.getElementById('modalArea').textContent = `${property.squareFeet || 'N/A'} sqft`;
+      document.getElementById('modalState').textContent = property.state || 'N/A';
+      document.getElementById('modalDistrict').textContent = property.district || 'N/A';
+      document.getElementById('modalSubDistrict').textContent = property.subDistrict || 'N/A';
+      document.getElementById('modalCityVillage').textContent = property.cityOrVillage || 'N/A';
+      document.getElementById('modalPincode').textContent = property.pincode || 'N/A';
+      document.getElementById('modalCoordinates').textContent = `${property.latitude || 'N/A'}, ${property.longitude || 'N/A'}`;
+      document.getElementById('modalOwner').textContent = property.ownerName || 'N/A';
+      document.getElementById('modalPropertyId').textContent = property.propertyId || 'N/A';
+      document.getElementById('modalRegistration').textContent = property.registrationNumber || 'N/A';
+      document.getElementById('modalRegistrationDate').textContent = property.registrationDate || 'N/A';
+      document.getElementById('modalEncumbrances').textContent = property.encumbrances || 'None';
+      
+      // Show modal with animation
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePropertyModal() {
+      const modal = document.getElementById('propertyModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('propertyModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePropertyModal();
       }
     });
   </script>
