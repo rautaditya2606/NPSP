@@ -1,5 +1,10 @@
 # API Endpoints Documentation
 
+
+GET http://localhost:8080/api/property/[propertyId]    
+GET http://localhost:8080/api/registration/[registrationNumber] GET http://localhost:8080/api/properties
+
+
 ## Language Selection
 - **POST** `/set-language`
   ```
