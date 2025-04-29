@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= __('Property Search') %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background: #f6f8fb;
+    }
+    .search-bar {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      padding: 24px;
+      margin: 24px auto;
+      max-width: 600px;
+    }
+  </style>
+  <!-- Include jQuery and jquery.ime CSS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/css/jquery.ime.min.css">
+</head>
+<body>
+  <div class="container search-bar">
+    <h1 class="mb-4 text-primary fw-bold"><%= __('Property Search') %></h1>
+    <!-- Debug line to show current locale -->
+    <form action="/search" method="POST" class="row g-3">
+      <div class="col-12">
+        <label for="method" class="form-label"><%= __('Search By:') %></label>
+        <select name="method" id="method" class="form-select">
+          <option value="propertyId"><%= __('Property ID') %></option>
+          <option value="ownerName"><%= __("Owner's Name") %></option>
+          <option value="registrationNumber"><%= __('Registration Number') %></option>
+        </select>
+      </div>
+      <!-- Default field for propertyId and registrationNumber -->
+      <div id="defaultField" class="col-12">
+        <label for="searchValue" class="form-label"><%= __('Enter Value:') %></label>
+        <input type="text" name="searchValue" id="searchValue" class="form-control">
+      </div>
+      <!-- Fields for ownerName search -->
+      <div id="nameFields" class="col-md-6" style="display:none;">
+        <label for="firstName" class="form-label"><%= __('First Name:') %></label>
+        <input type="text" name="firstName" id="firstName" class="form-control">
+      </div>
+      <div id="lastNameField" class="col-md-6" style="display:none;">
+        <label for="lastName" class="form-label"><%= __('Last Name:') %></label>
+        <input type="text" name="lastName" id="lastName" class="form-control">
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary"><%= __('Search') %></button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Include jquery.ime scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.selector.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.inputmethods.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      console.log('Document ready: initializing IME for firstName and lastName');
+      // Initialize transliteration for firstName input
+      if($('#firstName').ime){
+        $('#firstName').ime({imePath: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/'});
+        $('#firstName').ime("option", "lang", "hi");
+        console.log('IME initialized for firstName with lang=hi');
+      } else {
+        console.error('jquery.ime is not loaded for firstName');
+      }
+      
+      // Initialize transliteration for lastName input
+      if($('#lastName').ime){
+        $('#lastName').ime({imePath: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/'});
+        $('#lastName').ime("option", "lang", "hi");
+        console.log('IME initialized for lastName with lang=hi');
+      } else {
+        console.error('jquery.ime is not loaded for lastName');
+      }
+    });
+    
+    // Toggle between fields
+    document.getElementById('method').addEventListener('change', function() {
+      if(this.value === 'ownerName') {
+        document.getElementById('nameFields').style.display = 'block';
+        document.getElementById('lastNameField').style.display = 'block';
+        document.getElementById('defaultField').style.display = 'none';
+      } else {
+        document.getElementById('nameFields').style.display = 'none';
+        document.getElementById('lastNameField').style.display = 'none';
+        document.getElementById('defaultField').style.display = 'block';
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

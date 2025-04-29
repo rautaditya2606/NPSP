@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= typeof title !== 'undefined' ? title : 'Property Search' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Add Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+   crossorigin=""/>
+  <!-- Add jQuery (if not already present) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Add jquery.ime CSS and scripts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/css/jquery.ime.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.selector.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/jquery.ime.inputmethods.min.js"></script>
+  <style>
+    body { margin: 0; padding: 20px; }
+    #map { 
+      height: 600px; 
+      width: 100%;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <%- body %>
+  <script src="/js/script.js"></script>
+  <!-- Add Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+   crossorigin=""></script>
+</body>
+</html>
