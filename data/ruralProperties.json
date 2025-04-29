@@ -12,7 +12,8 @@
       "address": "Plot No. 47, Near Hanuman Mandir, Pindra, Varanasi, Uttar Pradesh - 221206",
       "latitude": "25.3200",
       "longitude": "82.9800",
-      "encumbrances": ["Mortgage"]
+      "encumbrances": ["Mortgage"],
+      "type": "individual"
     },
     {
       "propertyId": "8230014957",
@@ -27,7 +28,8 @@
       "address": "House No. 12, Shiv Colony, Near NH-83, Manpur, Gaya, Bihar - 823001",
       "latitude": "24.8000",
       "longitude": "84.9950",
-      "encumbrances": ["Property Tax Due"]
+      "encumbrances": ["Property Tax Due"],
+      "type": "individual"
     },
     {
       "propertyId": "1100117865",
@@ -42,7 +44,8 @@
       "address": "Plot No. 102, Krishna Nagar Extension, Lucknow Rural, Uttar Pradesh - 110011",
       "latitude": "26.8500",
       "longitude": "80.9500",
-      "encumbrances": ["Encumbrance Certificate Issued"]
+      "encumbrances": ["Encumbrance Certificate Issued"],
+      "type": "corporate"
     },
     {
       "propertyId": "3020013245",
@@ -57,7 +60,8 @@
       "address": "House No. 85, Ramgarh Road, Near Shiv Mandir, Jaipur Rural, Rajasthan - 302001",
       "latitude": "26.9150",
       "longitude": "75.7900",
-      "encumbrances": ["Mortgage", "Property Tax Due"]
+      "encumbrances": ["Mortgage", "Property Tax Due"],
+      "type": "individual"
     },
     {
       "propertyId": "8000014567",
@@ -72,7 +76,8 @@
       "address": "Flat No. 3A, Shanti Vihar Colony, Phulwarisharif, Patna Rural, Bihar - 800001",
       "latitude": "25.6000",
       "longitude": "85.1400",
-      "encumbrances": ["Lien"]
+      "encumbrances": ["Lien"],
+      "type": "corporate"
     },
     {
       "propertyId": "5000016789",
@@ -87,7 +92,8 @@
       "address": "House No. 22/B, Near BHEL Township, Patancheru, Hyderabad Rural, Telangana - 500001",
       "latitude": "17.3900",
       "longitude": "78.4900",
-      "encumbrances": ["Corporate Charge"]
+      "encumbrances": ["Corporate Charge"],
+      "type": "corporate"
     },
     {
       "propertyId": "6000013344",
@@ -102,7 +108,8 @@
       "address": "Plot No. 9, Rajiv Gandhi Street, Sriperumbudur, Chennai Rural, Tamil Nadu - 600001",
       "latitude": "13.0850",
       "longitude": "80.2750",
-      "encumbrances": ["Mortgage"]
+      "encumbrances": ["Mortgage"],
+      "type": "individual"
     },
     {
       "propertyId": "7000018899",
@@ -117,7 +124,8 @@
       "address": "Flat No. G2, Green Fields Apartment, Barasat, Kolkata Rural, West Bengal - 700001",
       "latitude": "22.5750",
       "longitude": "88.3650",
-      "encumbrances": ["Lien"]
+      "encumbrances": ["Lien"],
+      "type": "corporate"
     },
     {
       "propertyId": "4000022233",
@@ -132,7 +140,8 @@
       "address": "Bungalow No. 11, River View Society, Talegaon Dabhade, Pune Rural, Maharashtra - 400002",
       "latitude": "18.5250",
       "longitude": "73.8600",
-      "encumbrances": ["Property Tax Due"]
+      "encumbrances": ["Property Tax Due"],
+      "type": "individual"
     },
     {
       "propertyId": "5600026677",
@@ -147,7 +156,8 @@
       "address": "Site No. 18, Basavangudi Extension, Srirangapatna, Mysore Rural, Karnataka - 560002",
       "latitude": "12.3000",
       "longitude": "76.6400",
-      "encumbrances": ["Encumbrance Certificate Issued"]
+      "encumbrances": ["Encumbrance Certificate Issued"],
+      "type": "corporate"
     },
     {
       "propertyId": "2212064321",
@@ -162,7 +172,8 @@
       "address": "Flat No. 101, Sai Kripa Residency, Pindra, Varanasi, Uttar Pradesh - 221206",
       "latitude": "25.3200",
       "longitude": "82.9800",
-      "encumbrances": ["Encumbrance Certificate Issued"]
+      "encumbrances": ["Encumbrance Certificate Issued"],
+      "type": "individual"
     },
     {
       "propertyId": "8230016789",
@@ -177,6 +188,7 @@
       "address": "House No. 77, Kashi Enclave, Near Station Road, Manpur, Gaya, Bihar - 823001",
       "latitude": "24.8000",
       "longitude": "84.9950",
-      "encumbrances": ["Mortgage"]
+      "encumbrances": ["Mortgage"],
+      "type": "individual"
     }
 ]

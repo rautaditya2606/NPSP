@@ -5,55 +5,267 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= __('Property Search') %></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/styles.css">
   <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --light: #f8f9fa;
+      --dark: #212529;
+    }
+    
     body {
-      background: #f6f8fb;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .search-bar {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-      padding: 24px;
-      margin: 24px auto;
-      max-width: 600px;
+    
+    .page-wrapper {
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px;
     }
+    
+    .search-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin: 40px auto;
+      max-width: 700px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .search-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    .search-card h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .search-card h1:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      height: 4px;
+      width: 60px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .form-label {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-control, .form-select {
+      border-radius: 12px;
+      padding: 12px 16px;
+      border: 1px solid #ced4da;
+      transition: all 0.3s ease;
+      box-shadow: none;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+    }
+    
+    .search-btn {
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(67, 97, 238, 0.4);
+    }
+    
+    .search-btn:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+    
+    .search-btn:hover:before {
+      width: 100%;
+    }
+    
+    .search-btn i {
+      margin-right: 8px;
+    }
+    
+    /* Decorative elements */
+    .shape {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.6;
+    }
+    
+    .shape-1 {
+      top: -80px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--accent), var(--primary));
+      filter: blur(30px);
+    }
+    
+    .shape-2 {
+      bottom: -100px;
+      left: -80px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      filter: blur(40px);
+    }
+    
+    .shape-3 {
+      top: 50%;
+      right: -150px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--accent);
+      filter: blur(20px);
+    }
+    
+    /* Input group enhancements */
+    .input-group-text {
+      background-color: #f8f9fa;
+      border-radius: 12px 0 0 12px;
+      border-right: none;
+    }
+    
+    .input-group .form-control {
+      border-radius: 0 12px 12px 0;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .search-card {
+        padding: 30px 20px;
+      }
+      
+      .search-card h1 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      opacity: 0; /* ensure hidden until animation begins */
+      animation: fadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
   </style>
   <!-- Include jQuery and jquery.ime CSS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ime/1.5.4/css/jquery.ime.min.css">
 </head>
 <body>
-  <div class="container search-bar">
-    <h1 class="mb-4 text- fw-bold"><%= __('Property Search') %></h1>
-    <!-- Debug line to show current locale -->
-    <form action="/search" method="POST" class="row g-3">
-      <div class="col-12">
-        <label for="method" class="form-label"><%= __('Search By:') %></label>
-        <select name="method" id="method" class="form-select">
-          <option value="propertyId"><%= __('Property ID') %></option>
-          <option value="ownerName"><%= __("Owner's Name") %></option>
-          <option value="registrationNumber"><%= __('Registration Number') %></option>
-        </select>
-      </div>
-      <!-- Default field for propertyId and registrationNumber -->
-      <div id="defaultField" class="col-12">
-        <label for="searchValue" class="form-label"><%= __('Enter Value:') %></label>
-        <input type="text" name="searchValue" id="searchValue" class="form-control">
-      </div>
-      <!-- Fields for ownerName search -->
-      <div id="nameFields" class="col-md-6" style="display:none;">
-        <label for="firstName" class="form-label"><%= __('First Name:') %></label>
-        <input type="text" name="firstName" id="firstName" class="form-control">
-      </div>
-      <div id="lastNameField" class="col-md-6" style="display:none;">
-        <label for="lastName" class="form-label"><%= __('Last Name:') %></label>
-        <input type="text" name="lastName" id="lastName" class="form-control">
-      </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-dark"><%= __('Search') %></button>
-      </div>
-    </form>
+  <div class="page-wrapper">
+    <div class="search-card">
+      <!-- Decorative shapes -->
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      
+      <h1 class="mb-4 fade-in"><%= __('Property Search') %></h1>
+      
+      <form action="/search" method="POST" class="row g-3">
+        <div class="col-12 fade-in delay-1">
+          <label for="method" class="form-label"><%= __('Search By:') %></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <select name="method" id="method" class="form-select">
+              <option value="propertyId"><%= __('Property ID') %></option>
+              <option value="ownerName"><%= __("Owner's Name") %></option>
+              <option value="registrationNumber"><%= __('Registration Number') %></option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Default field for propertyId and registrationNumber -->
+        <div id="defaultField" class="col-12 fade-in delay-2">
+          <label for="searchValue" class="form-label"><%= __('Enter Value:') %></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-keyboard"></i></span>
+            <input type="text" name="searchValue" id="searchValue" class="form-control" placeholder="<%= __('Enter search value here...') %>">
+          </div>
+        </div>
+        
+        <!-- Fields for ownerName search -->
+        <div id="nameFields" class="col-md-6 fade-in delay-2" style="display:none;">
+          <label for="firstName" class="form-label"><%= __('First Name:') %></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <input type="text" name="firstName" id="firstName" class="form-control" placeholder="<%= __('First name') %>">
+          </div>
+        </div>
+        
+        <div id="lastNameField" class="col-md-6 fade-in delay-3" style="display:none;">
+          <label for="lastName" class="form-label"><%= __('Last Name:') %></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <input type="text" name="lastName" id="lastName" class="form-control" placeholder="<%= __('Last name') %>">
+          </div>
+        </div>
+        
+        <div class="col-12 mt-4 fade-in delay-4">
+          <button type="submit" class="search-btn w-100">
+            <i class="fas fa-search"></i> <%= __('Search') %>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- Include jquery.ime scripts -->

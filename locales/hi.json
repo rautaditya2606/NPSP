@@ -29,5 +29,15 @@
 	"Product": "Product",
 	"Services": "Services",
 	"About Us": "About Us",
-	"News": "News"
+	"News": "News",
+	"Government of India": "Government of India",
+	"Ministry of Digital Infrastructure & Services": "Ministry of Digital Infrastructure & Services",
+	"Home": "Home",
+	"Help": "Help",
+	"Contact": "Contact",
+	"Enter Property ID:": "Enter Property ID:",
+	"Enter Registration Number:": "Enter Registration Number:",
+	"Enter search value here...": "Enter search value here...",
+	"First name": "First name",
+	"Last name": "Last name"
 }

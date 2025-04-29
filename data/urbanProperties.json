@@ -12,7 +12,8 @@
       "address": "House No. 101, Palm Residency, South Mumbai, Mumbai, Maharashtra - 400001",
       "latitude": "18.9388",
       "longitude": "72.8354",
-      "encumbrances": ["Mortgage"]
+      "encumbrances": ["Mortgage"],
+      "type": "corporate"
     },
     {
       "propertyId": "5600017395",
@@ -27,7 +28,8 @@
       "address": "Flat No. 12B, Iconic Apartments, Bangalore North, Bengaluru, Karnataka - 560001",
       "latitude": "12.9716",
       "longitude": "77.5946",
-      "encumbrances": ["Property Tax Pending"]
+      "encumbrances": ["Property Tax Pending"],
+      "type": "residential"
     },
     {
       "propertyId": "4000021234",
@@ -42,7 +44,8 @@
       "address": "Apartment No. 5, Central Towers, Central Mumbai, Mumbai, Maharashtra - 400002",
       "latitude": "19.0176",
       "longitude": "72.8562",
-      "encumbrances": ["Lien"]
+      "encumbrances": ["Lien"],
+      "type": "commercial"
     },
     {
       "propertyId": "5600024321",
@@ -57,7 +60,8 @@
       "address": "House No. 34, East Park Residency, East Bengaluru, Bengaluru, Karnataka - 560002",
       "latitude": "12.9250",
       "longitude": "77.6800",
-      "encumbrances": ["Encumbrance Certificate Issued"]
+      "encumbrances": ["Encumbrance Certificate Issued"],
+      "type": "residential"
     },
     {
       "propertyId": "5000021111",
@@ -72,7 +76,8 @@
       "address": "Flat No. 23, West Verticals, West Hyderabad, Hyderabad, Telangana - 500002",
       "latitude": "17.4120",
       "longitude": "78.4390",
-      "encumbrances": ["Corporate Charge"]
+      "encumbrances": ["Corporate Charge"],
+      "type": "corporate"
     },
     {
       "propertyId": "6000023333",
@@ -87,7 +92,8 @@
       "address": "Apartment No. 7A, North Star Residency, North Chennai, Chennai, Tamil Nadu - 600002",
       "latitude": "13.1000",
       "longitude": "80.2700",
-      "encumbrances": ["Mortgage"]
+      "encumbrances": ["Mortgage"],
+      "type": "residential"
     },
     {
       "propertyId": "7000024444",
@@ -102,7 +108,8 @@
       "address": "House No. 56, South Court, South Kolkata, Kolkata, West Bengal - 700002",
       "latitude": "22.4960",
       "longitude": "88.3240",
-      "encumbrances": ["Lien"]
+      "encumbrances": ["Lien"],
+      "type": "commercial"
     },
     {
       "propertyId": "4000035555",
@@ -117,7 +124,8 @@
       "address": "Flat No. 15, Skyline Apartments, North Mumbai, Mumbai, Maharashtra - 400003",
       "latitude": "19.1076",
       "longitude": "72.8400",
-      "encumbrances": ["Property Tax Due"]
+      "encumbrances": ["Property Tax Due"],
+      "type": "residential"
     },
     {
       "propertyId": "5600036666",
@@ -132,7 +140,8 @@
       "address": "House No. 88, Royal Residency, South Bengaluru, Bengaluru, Karnataka - 560003",
       "latitude": "12.9200",
       "longitude": "77.5800",
-      "encumbrances": ["Mortgage"]
+      "encumbrances": ["Mortgage"],
+      "type": "residential"
     },
     {
       "propertyId": "5000037777",
@@ -147,7 +156,8 @@
       "address": "Apartment No. 4B, Central Residency, Central Hyderabad, Hyderabad, Telangana - 500003",
       "latitude": "17.3850",
       "longitude": "78.4867",
-      "encumbrances": ["Encumbrance Certificate Issued"]
+      "encumbrances": ["Encumbrance Certificate Issued"],
+      "type": "corporate"
     },
     {
       "propertyId": "4000019876",
@@ -162,7 +172,8 @@
       "address": "House No. 102, Palm Residency, South Mumbai, Mumbai, Maharashtra - 400001",
       "latitude": "18.9388",
       "longitude": "72.8354",
-      "encumbrances": ["Lien"]
+      "encumbrances": ["Lien"],
+      "type": "commercial"
     },
     {
       "propertyId": "5600015432",
@@ -177,6 +188,7 @@
       "address": "Flat No. 14, Iconic Apartments, Bangalore North, Bengaluru, Karnataka - 560001",
       "latitude": "12.9716",
       "longitude": "77.5946",
-      "encumbrances": ["Property Tax Pending"]
+      "encumbrances": ["Property Tax Pending"],
+      "type": "residential"
     }
 ]

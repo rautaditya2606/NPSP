@@ -1,0 +1,416 @@
+[
+  {
+    "propertyId": "2212064823",
+    "ownerName": "Vikram Singh",
+    "registrationNumber": "2005202112345",
+    "ownership_type": "individual",
+    "address": "Plot No. 47, Near Hanuman Mandir, Pindra, Varanasi, Uttar Pradesh - 221206",
+    "registrationDate": "2021-05-20",
+    "source": "rural"
+  },
+  {
+    "propertyId": "8230014957",
+    "ownerName": "Anita Devi",
+    "registrationNumber": "1506202154321",
+    "ownership_type": "individual",
+    "address": "House No. 12, Shiv Colony, Near NH-83, Manpur, Gaya, Bihar - 823001",
+    "registrationDate": "2021-06-15",
+    "source": "rural"
+  },
+  {
+    "propertyId": "1100117865",
+    "ownerName": "Ramesh Kumar",
+    "registrationNumber": "1007202145789",
+    "ownership_type": "corporate",
+    "address": "Plot No. 102, Krishna Nagar Extension, Lucknow Rural, Uttar Pradesh - 110011",
+    "registrationDate": "2021-07-10",
+    "source": "rural"
+  },
+  {
+    "propertyId": "3020013245",
+    "ownerName": "Sita Ram",
+    "registrationNumber": "1508202198765",
+    "ownership_type": "individual",
+    "address": "House No. 85, Ramgarh Road, Near Shiv Mandir, Jaipur Rural, Rajasthan - 302001",
+    "registrationDate": "2021-08-15",
+    "source": "rural"
+  },
+  {
+    "propertyId": "8000014567",
+    "ownerName": "Geeta Kumari",
+    "registrationNumber": "1009202154321",
+    "ownership_type": "corporate",
+    "address": "Flat No. 3A, Shanti Vihar Colony, Phulwarisharif, Patna Rural, Bihar - 800001",
+    "registrationDate": "2021-09-10",
+    "source": "rural"
+  },
+  {
+    "propertyId": "5000016789",
+    "ownerName": "Arjun Reddy",
+    "registrationNumber": "0510202111223",
+    "ownership_type": "corporate",
+    "address": "House No. 22/B, Near BHEL Township, Patancheru, Hyderabad Rural, Telangana - 500001",
+    "registrationDate": "2021-10-05",
+    "source": "rural"
+  },
+  {
+    "propertyId": "6000013344",
+    "ownerName": "Lakshmi Narayan",
+    "registrationNumber": "1111202155667",
+    "ownership_type": "individual",
+    "address": "Plot No. 9, Rajiv Gandhi Street, Sriperumbudur, Chennai Rural, Tamil Nadu - 600001",
+    "registrationDate": "2021-11-11",
+    "source": "rural"
+  },
+  {
+    "propertyId": "7000018899",
+    "ownerName": "Pradeep Das",
+    "registrationNumber": "0112202177889",
+    "ownership_type": "corporate",
+    "address": "Flat No. G2, Green Fields Apartment, Barasat, Kolkata Rural, West Bengal - 700001",
+    "registrationDate": "2021-12-01",
+    "source": "rural"
+  },
+  {
+    "propertyId": "4000022233",
+    "ownerName": "Sneha Patil",
+    "registrationNumber": "1501202233445",
+    "ownership_type": "individual",
+    "address": "Bungalow No. 11, River View Society, Talegaon Dabhade, Pune Rural, Maharashtra - 400002",
+    "registrationDate": "2022-01-15",
+    "source": "rural"
+  },
+  {
+    "propertyId": "5600026677",
+    "ownerName": "Vijay Rao",
+    "registrationNumber": "2002202299887",
+    "ownership_type": "corporate",
+    "address": "Site No. 18, Basavangudi Extension, Srirangapatna, Mysore Rural, Karnataka - 560002",
+    "registrationDate": "2022-02-20",
+    "source": "rural"
+  },
+  {
+    "propertyId": "2212064321",
+    "ownerName": "Vikram Singh",
+    "registrationNumber": "2005202111111",
+    "ownership_type": "individual",
+    "address": "Flat No. 101, Sai Kripa Residency, Pindra, Varanasi, Uttar Pradesh - 221206",
+    "registrationDate": "2021-06-01",
+    "source": "rural"
+  },
+  {
+    "propertyId": "8230016789",
+    "ownerName": "Anita Devi",
+    "registrationNumber": "1506202155555",
+    "ownership_type": "individual",
+    "address": "House No. 77, Kashi Enclave, Near Station Road, Manpur, Gaya, Bihar - 823001",
+    "registrationDate": "2021-07-01",
+    "source": "rural"
+  },
+  {
+    "property_id": "4000015823",
+    "owner_name": "Rahul Sharma",
+    "registrationNumber": "1001202212345",
+    "ownership_type": "corporate",
+    "address": "House No. 101, Palm Residency, South Mumbai, Mumbai, Maharashtra - 400001",
+    "registration_date": "2022-01-10",
+    "source": "urban"
+  },
+  {
+    "property_id": "5600017395",
+    "owner_name": "Sneha Kapoor",
+    "registrationNumber": "1502202254321",
+    "ownership_type": "residential",
+    "address": "Flat No. 12B, Iconic Apartments, Bangalore North, Bengaluru, Karnataka - 560001",
+    "registration_date": "2022-02-15",
+    "source": "urban"
+  },
+  {
+    "property_id": "4000021234",
+    "owner_name": "Amit Deshmukh",
+    "registrationNumber": "0503202256789",
+    "ownership_type": "commercial",
+    "address": "Apartment No. 5, Central Towers, Central Mumbai, Mumbai, Maharashtra - 400002",
+    "registration_date": "2022-03-05",
+    "source": "urban"
+  },
+  {
+    "property_id": "5600024321",
+    "owner_name": "Kavita Rao",
+    "registrationNumber": "1004202298765",
+    "ownership_type": "residential",
+    "address": "House No. 34, East Park Residency, East Bengaluru, Bengaluru, Karnataka - 560002",
+    "registration_date": "2022-04-10",
+    "source": "urban"
+  },
+  {
+    "property_id": "5000021111",
+    "owner_name": "Sunil Kumar",
+    "registrationNumber": "1505202222222",
+    "ownership_type": "corporate",
+    "address": "Flat No. 23, West Verticals, West Hyderabad, Hyderabad, Telangana - 500002",
+    "registration_date": "2022-05-15",
+    "source": "urban"
+  },
+  {
+    "property_id": "6000023333",
+    "owner_name": "Divya Iyer",
+    "registrationNumber": "2006202233333",
+    "ownership_type": "residential",
+    "address": "Apartment No. 7A, North Star Residency, North Chennai, Chennai, Tamil Nadu - 600002",
+    "registration_date": "2022-06-20",
+    "source": "urban"
+  },
+  {
+    "property_id": "7000024444",
+    "owner_name": "Rohit Sen",
+    "registrationNumber": "2507202244444",
+    "ownership_type": "commercial",
+    "address": "House No. 56, South Court, South Kolkata, Kolkata, West Bengal - 700002",
+    "registration_date": "2022-07-25",
+    "source": "urban"
+  },
+  {
+    "property_id": "4000035555",
+    "owner_name": "Pooja Mehta",
+    "registrationNumber": "3008202255555",
+    "ownership_type": "residential",
+    "address": "Flat No. 15, Skyline Apartments, North Mumbai, Mumbai, Maharashtra - 400003",
+    "registration_date": "2022-08-30",
+    "source": "urban"
+  },
+  {
+    "property_id": "5600036666",
+    "owner_name": "Sanjay Gupta",
+    "registrationNumber": "1009202266666",
+    "ownership_type": "residential",
+    "address": "House No. 88, Royal Residency, South Bengaluru, Bengaluru, Karnataka - 560003",
+    "registration_date": "2022-09-10",
+    "source": "urban"
+  },
+  {
+    "property_id": "5000037777",
+    "owner_name": "Meera Nair",
+    "registrationNumber": "0510202277777",
+    "ownership_type": "corporate",
+    "address": "Apartment No. 4B, Central Residency, Central Hyderabad, Hyderabad, Telangana - 500003",
+    "registration_date": "2022-10-05",
+    "source": "urban"
+  },
+  {
+    "property_id": "4000019876",
+    "owner_name": "Rahul Sharma",
+    "registrationNumber": "1001202211111",
+    "ownership_type": "commercial",
+    "address": "House No. 102, Palm Residency, South Mumbai, Mumbai, Maharashtra - 400001",
+    "registration_date": "2022-03-01",
+    "source": "urban"
+  },
+  {
+    "property_id": "5600015432",
+    "owner_name": "Sneha Kapoor",
+    "registrationNumber": "1502202212222",
+    "ownership_type": "residential",
+    "address": "Flat No. 14, Iconic Apartments, Bangalore North, Bengaluru, Karnataka - 560001",
+    "registration_date": "2022-04-01",
+    "source": "urban"
+  },
+  {
+    "property_id": "1100012345",
+    "owner_name": "Vikram Patel",
+    "registrationNumber": "1501202312345",
+    "ownership_type": "commercial",
+    "address": "Flat No. 301, Shanti Heights, West Ahmedabad, Ahmedabad, Gujarat - 380001",
+    "registration_date": "2023-01-15",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "6000034567",
+    "owner_name": "Priya Menon",
+    "registrationNumber": "2002202345678",
+    "ownership_type": "individual",
+    "address": "House No. 45, Green Valley, Central Chennai, Chennai, Tamil Nadu - 600003",
+    "registration_date": "2023-02-20",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "7000045678",
+    "owner_name": "Arjun Banerjee",
+    "registrationNumber": "2503202398765",
+    "ownership_type": "corporate",
+    "address": "Apartment No. 9C, Northview Towers, North Kolkata, Kolkata, West Bengal - 700004",
+    "registration_date": "2023-03-25",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "5000046789",
+    "owner_name": "Ananya Reddy",
+    "registrationNumber": "3004202343210",
+    "ownership_type": "individual",
+    "address": "Villa No. 12, Eastern Meadows, East Hyderabad, Hyderabad, Telangana - 500004",
+    "registration_date": "2023-04-30",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "1100023456",
+    "owner_name": "Neha Joshi",
+    "registrationNumber": "1505202356789",
+    "ownership_type": "commercial",
+    "address": "Flat No. 504, Diamond Residency, Adajan, Surat, Gujarat - 395009",
+    "registration_date": "2023-05-15",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "6000047890",
+    "owner_name": "Karthik Iyer",
+    "registrationNumber": "2006202390123",
+    "ownership_type": "corporate",
+    "address": "House No. 78, Tech Park Residency, Peelamedu, Coimbatore, Tamil Nadu - 641004",
+    "registration_date": "2023-06-20",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "7000058901",
+    "owner_name": "Soham Das",
+    "registrationNumber": "2507202345671",
+    "ownership_type": "individual",
+    "address": "Apartment No. 3B, Riverside Apartments, Shibpur, Howrah, West Bengal - 711102",
+    "registration_date": "2023-07-25",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "5000059012",
+    "owner_name": "Rahul Verma",
+    "registrationNumber": "3008202389012",
+    "ownership_type": "corporate",
+    "address": "House No. 56, Army Quarters, Trimulgherry, Secunderabad, Telangana - 500015",
+    "registration_date": "2023-08-30",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "1100034567",
+    "owner_name": "Mira Shah",
+    "registrationNumber": "1509202376543",
+    "ownership_type": "individual",
+    "address": "Flat No. 201, Royal Palace, Alkapuri, Vadodara, Gujarat - 390007",
+    "registration_date": "2023-09-15",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "6000056789",
+    "owner_name": "Deepa Srinivasan",
+    "registrationNumber": "2010202398764",
+    "ownership_type": "commercial",
+    "address": "House No. 34, Temple View Residency, Koodal Nagar, Madurai, Tamil Nadu - 625018",
+    "registration_date": "2023-10-20",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "3800023456",
+    "owner_name": "Vikram Patel",
+    "registrationNumber": "1511202311111",
+    "ownership_type": "corporate",
+    "address": "Office No. 501, Business Tower, Navrangpura, Ahmedabad, Gujarat - 380009",
+    "registration_date": "2023-11-15",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "6410057890",
+    "owner_name": "Karthik Iyer",
+    "registrationNumber": "2012202322222",
+    "ownership_type": "commercial",
+    "address": "Shop No. 12, Commercial Complex, Gandhipuram, Coimbatore, Tamil Nadu - 641012",
+    "registration_date": "2023-12-20",
+    "source": "CERSAI"
+  },
+  {
+    "property_id": "8000012345",
+    "owner_name": "Rajiv Malhotra",
+    "registrationNumber": "0501202465432",
+    "ownership_type": "individual",
+    "address": "Flat No. 8, Imperial Heights, Connaught Place, New Delhi, Delhi - 110001",
+    "registration_date": "2024-01-05",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "4110023456",
+    "owner_name": "Anjali Deshpande",
+    "registrationNumber": "1002202467890",
+    "ownership_type": "individual",
+    "address": "Bungalow No. 3, Green Valley Society, Kothrud, Pune, Maharashtra - 411038",
+    "registration_date": "2024-02-10",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "7000067890",
+    "owner_name": "Indrani Chatterjee",
+    "registrationNumber": "1503202461234",
+    "ownership_type": "individual",
+    "address": "Flat No. 12B, Lakeview Apartments, Salt Lake, Kolkata, West Bengal - 700091",
+    "registration_date": "2024-03-15",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "5000061234",
+    "owner_name": "Aditya Rao",
+    "registrationNumber": "2004202456789",
+    "ownership_type": "individual",
+    "address": "Villa No. 7, Tech Park Residency, Gachibowli, Hyderabad, Telangana - 500032",
+    "registration_date": "2024-04-20",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "6000062345",
+    "owner_name": "Ganesh Moorthy",
+    "registrationNumber": "2505202498765",
+    "ownership_type": "individual",
+    "address": "House No. 56, Beach View Residency, Adyar, Chennai, Tamil Nadu - 600020",
+    "registration_date": "2024-05-25",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "3900083456",
+    "owner_name": "Parthiv Mehta",
+    "registrationNumber": "3006202432109",
+    "ownership_type": "individual",
+    "address": "Shop No. 5, Commercial Plaza, Fatehgunj, Vadodara, Gujarat - 390002",
+    "registration_date": "2024-06-30",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "4110034567",
+    "owner_name": "Deepika Pawar",
+    "registrationNumber": "0507202476543",
+    "ownership_type": "individual",
+    "address": "Flat No. 304, IT Park Residency, Hinjewadi, Pune, Maharashtra - 411057",
+    "registration_date": "2024-07-05",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "1100024567",
+    "owner_name": "Nandini Gupta",
+    "registrationNumber": "1008202487654",
+    "ownership_type": "individual",
+    "address": "Penthouse No. 1, Luxury Towers, Saket, New Delhi, Delhi - 110017",
+    "registration_date": "2024-08-10",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "7000075678",
+    "owner_name": "Sourav Ganguly",
+    "registrationNumber": "1509202490123",
+    "ownership_type": "individual",
+    "address": "Bungalow No. 10, Elite Enclave, Alipore, Kolkata, West Bengal - 700027",
+    "registration_date": "2024-09-15",
+    "source": "MCA21"
+  },
+  {
+    "property_id": "5000076789",
+    "owner_name": "Kiran Reddy",
+    "registrationNumber": "2010202467891",
+    "ownership_type": "commercial",
+    "address": "Villa No. 15, Star Hills Colony, Jubilee Hills, Hyderabad, Telangana - 500033",
+    "registration_date": "2024-10-20",
+    "source": "MCA21"
+  }
+]
