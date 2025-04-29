@@ -149,7 +149,7 @@
           <div class="fw-semibold mb-1"><%= property.name || property.ownerName %></div>
           <div class="property-meta"><%= property.address %></div>
           <div class="property-features">
-            <span><%= results[0].squareFeet %> Sqr feet</span>
+            <span>Sqr feet : <%= results[0].squareFeet || 'Data Not Available'  %></span>
             <span><%= property.bathrooms || '2' %> <%= __('Bathrooms') %></span>
             <span><%= property.bedrooms || '4' %> <%= __('Bedrooms') %></span>
           </div>
