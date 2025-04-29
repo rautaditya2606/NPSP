@@ -142,13 +142,14 @@
   <div class="container property-cards mb-5">
     <% results.forEach((property, index) => { %>
       <div class="card property-card position-relative">
-        <img src="<%= property.imageUrl || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' %>" alt="<%= __('Property Image') %>">
+        <img src="<%= results[0].imageUrl || '/images/default-house.jpg' %>" 
+             alt="<%= __('Property Image') %>"
+             onerror="this.src='https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg'">
         <div class="card-body">
-          <h5 class="card-title text-primary">$ <%= property.price %></h5>
           <div class="fw-semibold mb-1"><%= property.name || property.ownerName %></div>
           <div class="property-meta"><%= property.address %></div>
           <div class="property-features">
-            <span><%= property.area || '1278' %> <%= __('SQFT') %></span>
+            <span><%= results[0].squareFeet %> Sqr feet</span>
             <span><%= property.bathrooms || '2' %> <%= __('Bathrooms') %></span>
             <span><%= property.bedrooms || '4' %> <%= __('Bedrooms') %></span>
           </div>

@@ -307,37 +307,6 @@
         document.getElementById('defaultField').style.display = 'block';
       }
     });
-
-    // Handle form submission
-    $('form').on('submit', function(e) {
-      e.preventDefault();
-      const method = $('#method').val();
-      let searchValue = '';
-
-      if (method === 'ownerName') {
-        const firstName = encodeURIComponent($('#firstName').val().trim());
-        const lastName = encodeURIComponent($('#lastName').val().trim());
-        searchValue = `${firstName} ${lastName}`.trim();
-      } else {
-        searchValue = encodeURIComponent($('#searchValue').val().trim());
-      }
-
-      if (!searchValue) {
-        alert('Please enter a search value');
-        return;
-      }
-
-      let url = '/api/search/';
-      if (method === 'propertyId') {
-        url += `registration/${searchValue}`;
-      } else if (method === 'registrationNumber') {
-        url += `registration/${searchValue}`;
-      } else {
-        url += `owner/${searchValue}`;
-      }
-
-      window.location.href = url;
-    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

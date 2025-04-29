@@ -14,7 +14,7 @@
       "longitude": "72.8354",
       "encumbrances": ["Mortgage"],
       "type": "corporate",
-      "propertyZone": "urban"
+      "imageUrl": "https://images.homify.com/image/upload/c_scale,h_500,w_500/v1520224068/p/photo/image/2462141/DSC00003.jpg"
     },
     {
       "propertyId": "5600017395",
@@ -31,7 +31,7 @@
       "longitude": "77.5946",
       "encumbrances": ["Property Tax Pending"],
       "type": "residential",
-      "propertyZone": "urban"
+      "imageUrl": "https://img.freepik.com/free-photo/india-republic-day-celebration-with-3d-building_23-2151016009.jpg"
     },
     {
       "propertyId": "4000021234",
@@ -48,7 +48,7 @@
       "longitude": "72.8562",
       "encumbrances": ["Lien"],
       "type": "commercial",
-      "propertyZone": "urban"
+      "imageUrl": "https://i.pinimg.com/736x/b4/b9/aa/b4b9aac0fd4a6efd448db56874b15326.jpg"
     },
     {
       "propertyId": "5600024321",
@@ -65,7 +65,7 @@
       "longitude": "77.6800",
       "encumbrances": ["Encumbrance Certificate Issued"],
       "type": "residential",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     },
     {
       "propertyId": "5000021111",
@@ -82,7 +82,7 @@
       "longitude": "78.4390",
       "encumbrances": ["Corporate Charge"],
       "type": "corporate",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     },
     {
       "propertyId": "6000023333",
@@ -99,7 +99,7 @@
       "longitude": "80.2700",
       "encumbrances": ["Mortgage"],
       "type": "residential",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     },
     {
       "propertyId": "7000024444",
@@ -116,7 +116,7 @@
       "longitude": "88.3240",
       "encumbrances": ["Lien"],
       "type": "commercial",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     },
     {
       "propertyId": "4000035555",
@@ -133,7 +133,7 @@
       "longitude": "72.8400",
       "encumbrances": ["Property Tax Due"],
       "type": "residential",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     },
     {
       "propertyId": "5600036666",
@@ -150,7 +150,7 @@
       "longitude": "77.5800",
       "encumbrances": ["Mortgage"],
       "type": "residential",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     },
     {
       "propertyId": "5000037777",
@@ -167,7 +167,7 @@
       "longitude": "78.4867",
       "encumbrances": ["Encumbrance Certificate Issued"],
       "type": "corporate",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     },
     {
       "propertyId": "4000019876",
@@ -184,7 +184,7 @@
       "longitude": "72.8354",
       "encumbrances": ["Lien"],
       "type": "commercial",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     },
     {
       "propertyId": "5600015432",
@@ -201,6 +201,6 @@
       "longitude": "77.5946",
       "encumbrances": ["Property Tax Pending"],
       "type": "residential",
-      "propertyZone": "urban"
+      "imageUrl": "https://5.imimg.com/data5/ANDROID/Default/2022/11/VE/OS/PL/156735559/product-jpeg-500x500.jpg"
     }
 ]

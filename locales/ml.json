@@ -38,5 +38,8 @@
 	"E.g. 1234567890": "E.g. 1234567890",
 	"Registration Number (13 digits)": "Registration Number (13 digits)",
 	"E.g. 1234567890123": "E.g. 1234567890123",
-	"Search Property": "Search Property"
+	"Search Property": "Search Property",
+	"Enter search value here...": "Enter search value here...",
+	"First name": "First name",
+	"Last name": "Last name"
 }

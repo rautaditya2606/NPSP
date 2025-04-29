@@ -14,7 +14,7 @@
       "longitude": "77.2197",
       "encumbrances": ["Maintenance Due"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-traditional-roof-design-260nw-1930409063.jpg"
     },
     {
       "propertyId": "4110023456",
@@ -31,7 +31,7 @@
       "longitude": "73.8076",
       "encumbrances": ["Gift Deed"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-design-home-elevation-260nw-2501044035.jpg"
     },
     {
       "propertyId": "7000067890",
@@ -48,7 +48,7 @@
       "longitude": "88.4133",
       "encumbrances": ["Will Registered"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-traditional-roof-design-260nw-1930409063.jpg"
     },
     {
       "propertyId": "5000061234",
@@ -65,7 +65,7 @@
       "longitude": "78.3489",
       "encumbrances": ["Power of Attorney"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-design-home-elevation-260nw-2501044035.jpg"
     },
     {
       "propertyId": "6000062345",
@@ -82,7 +82,7 @@
       "longitude": "80.2586",
       "encumbrances": ["Lease Agreement"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-traditional-roof-design-260nw-1930409063.jpg"
     },
     {
       "propertyId": "3900083456",
@@ -99,7 +99,7 @@
       "longitude": "73.1928",
       "encumbrances": ["Business Mortgage"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-design-home-elevation-260nw-2501044035.jpg"
     },
     {
       "propertyId": "4110034567",
@@ -116,7 +116,7 @@
       "longitude": "73.7389",
       "encumbrances": ["Maintenance Due"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-traditional-roof-design-260nw-1930409063.jpg"
     },
     {
       "propertyId": "1100024567",
@@ -133,7 +133,7 @@
       "longitude": "77.2065",
       "encumbrances": ["Joint Ownership"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-design-home-elevation-260nw-2501044035.jpg"
     },
     {
       "propertyId": "7000075678",
@@ -150,7 +150,7 @@
       "longitude": "88.3349",
       "encumbrances": ["Heritage Property"],
       "type": "individual",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-traditional-roof-design-260nw-1930409063.jpg"
     },
     {
       "propertyId": "5000076789",
@@ -167,6 +167,6 @@
       "longitude": "78.4085",
       "encumbrances": ["Power of Attorney"],
       "type": "commercial",
-      "propertyZone": "urban"
+      "imageUrl": "https://www.shutterstock.com/image-photo/indian-house-design-home-elevation-260nw-2501044035.jpg"
     }
 ]

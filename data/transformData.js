@@ -1,64 +1,24 @@
-// Helper: format date from DD/MM/YYYY to YYYY-MM-DD
-function formatDate(dateStr) {
-  if (!dateStr) return 'N/A';
-  const [day, month, year] = dateStr.split('/');
-  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-}
+const fs = require('fs');
+const { standardizeProperty } = require('../utils/propertyTransformer');
 
 // Transform function for rural data
 function transformRuralData(data) {
-  return {
-    propertyId: data.propertyId || 'N/A',
-    ownerName: data.ownerName || 'N/A',
-    registrationNumber: data.registrationNumber || 'N/A',
-    ownership_type: data.type || 'individual',
-    address: data.address || 'Not available',
-    registrationDate: data.registrationDate || 'N/A',
-    propertyZone: data.propertyZone || 'rural',
-    source: 'rural'
-  };
+  return standardizeProperty(data, 'DLR');
 }
 
 // Transform function for urban data
 function transformUrbanData(data) {
-  return {
-    property_id: data.propertyId || 'N/A',
-    owner_name: data.ownerName || 'N/A',
-    registrationNumber: data.registrationNumber || 'N/A',
-    ownership_type: data.type || 'individual',
-    address: data.address || 'Not available',
-    registration_date: data.registrationDate || 'N/A',
-    propertyZone: data.propertyZone || 'urban',
-    source: 'urban'
-  };
+  return standardizeProperty(data, 'DORSI');
 }
 
 // Transform function for CERSAI data
 function transformCERSAIData(data) {
-  return {
-    property_id: data.propertyId || 'N/A',
-    owner_name: data.ownerName || 'N/A',
-    registrationNumber: data.registrationNumber || 'N/A',
-    ownership_type: data.type || 'individual',
-    address: data.address || 'Not Available',
-    registration_date: data.registrationDate || 'N/A',
-    propertyZone: data.propertyZone || (data.subDistrict?.includes('Rural') ? 'rural' : 'urban'),
-    source: 'CERSAI'
-  };
+  return standardizeProperty(data, 'CERSAI');
 }
 
 // Transform function for MCA21 data
 function transformMCA21Data(data) {
-  return {
-    property_id: data.propertyId || 'N/A',
-    owner_name: data.ownerName || 'N/A',
-    registrationNumber: data.registrationNumber || 'N/A',
-    ownership_type: data.type || 'individual',
-    address: data.address || 'Not Available',
-    registration_date: data.registrationDate || 'N/A',
-    propertyZone: data.propertyZone || (data.subDistrict?.includes('Rural') ? 'rural' : 'urban'),
-    source: 'MCA21'
-  };
+  return standardizeProperty(data, 'MCA21');
 }
 
 // Combine all transformed data arrays into one unified array
@@ -69,11 +29,16 @@ function combineData(ruralRaw, urbanRaw, cersaiRaw, mcaRaw) {
     ...cersaiRaw.map(transformCERSAIData),
     ...mcaRaw.map(transformMCA21Data)
   ];
-  return unifiedData;
+  
+  // Remove duplicates based on propertyId
+  const uniqueData = Array.from(new Map(
+    unifiedData.map(item => [item.propertyDetails.propertyId, item])
+  ).values());
+  
+  return uniqueData;
 }
 
 // Save unified data to a JSON file
-const fs = require('fs');
 function saveDataToFile(data, filePath = './unified_data.json') {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
 }

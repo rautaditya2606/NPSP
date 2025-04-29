@@ -1,131 +1,86 @@
 # API Endpoints Documentation
 
+## Core Property Search Endpoints
 
-GET http://localhost:8080/api/property/[propertyId]    
-GET http://localhost:8080/api/registration/[registrationNumber] 
+### 1. Get All Properties
+```bash
 GET http://localhost:8080/api/properties
-
-
-## Language Selection
-- **POST** `/set-language`
-  ```
-  Request body: { "language": "hi" }
-  Response: Redirects to /search
-  ```
-
-## Property Search APIs
-
-### DORIS API
-- **GET** `/api/doris`
-  ```
-  Query params: 
-  - propertyId: "4000015823"
-  OR
-  - registrationNumber: "1001202212345"
-
-  Example: http://localhost:8080/api/doris?propertyId=4000015823
-
-  Response:
-  {
-    "source": "DORIS",
-    "propertyId": "4000015823",
-    "registrationNumber": "1001202212345",
-    "ownerName": "Rahul Sharma",
-    "registrationDate": "2022-01-10",
-    "encumbrances": ["Mortgage"],
-    "loanStatus": "No Loan"
-  }
-  ```
-
-### DLR API
-- **GET** `/api/dlr`
-  ```
-  Query params:
-  - propertyId: "5600017395"
-  OR
-  - registrationNumber: "1502202254321"
-
-  Example: http://localhost:8080/api/dlr?registrationNumber=1502202254321
-
-  Response:
-  {
-    "source": "DLR",
-    "propertyId": "5600017395",
-    "registrationNumber": "1502202254321",
-    "ownerName": "Sneha Kapoor",
-    "registrationDate": "2022-02-15",
-    "encumbrances": ["Property Tax Pending"],
-    "loanStatus": "Loan Approved"
-  }
-  ```
-
-### CERSAI API
-- **GET** `/api/cersai`
-  ```
-  Query params:
-  - propertyId: "4000021234"
-  OR
-  - registrationNumber: "0503202256789"
-
-  Example: http://localhost:8080/api/cersai?propertyId=4000021234
-
-  Response:
-  {
-    "source": "CERSAI",
-    "propertyId": "4000021234",
-    "registrationNumber": "0503202256789",
-    "ownerName": "Amit Deshmukh",
-    "registrationDate": "2022-03-05",
-    "encumbrances": ["Lien"],
-    "loanStatus": "Pending Discharge"
-  }
-  ```
-
-### MCA21 API
-- **GET** `/api/mca21`
-  ```
-  Query params:
-  - propertyId: "5000021111"
-  OR
-  - registrationNumber: "1505202222222"
-
-  Example: http://localhost:8080/api/mca21?propertyId=5000021111
-
-  Response:
-  {
-    "source": "MCA21",
-    "propertyId": "5000021111",
-    "registrationNumber": "1505202222222",
-    "ownerName": "Sunil Kumar",
-    "registrationDate": "2022-05-15",
-    "encumbrances": ["Corporate Charge"],
-    "loanStatus": "Loan Under Process"
-  }
-  ```
-
-## Testing with cURL
-
-Test DORIS API:
-```bash
-curl "http://localhost:8080/api/doris?propertyId=4000015823"
 ```
 
-Test DLR API:
+### 2. Search by Property ID
 ```bash
-curl "http://localhost:8080/api/dlr?registrationNumber=1502202254321"
+GET http://localhost:8080/api/property/{propertyId}
+Example: http://localhost:8080/api/property/2212064823
 ```
 
-Test CERSAI API:
+### 3. Search by Registration Number
 ```bash
-curl "http://localhost:8080/api/cersai?propertyId=4000021234"
+GET http://localhost:8080/api/registration/{registrationNumber}
+Example: http://localhost:8080/api/registration/2005202112345
 ```
 
-Test MCA21 API:
-```bash
-curl "http://localhost:8080/api/mca21?propertyId=5000021111"
+## Standard Response Format
+All endpoints return properties in this format:
+```json
+{
+  "propertyId": "2212064823",
+  "ownerName": "Vikram Singh",
+  "registrationNumber": "2005202112345",
+  "state": "Uttar Pradesh",
+  "district": "Varanasi", 
+  "subDistrict": "Rural Varanasi",
+  "cityOrVillage": "Pindra",
+  "pincode": "221206",
+  "registrationDate": "2021-05-20",
+  "address": "Plot No. 47, Near Hanuman Mandir, Pindra, Varanasi, Uttar Pradesh - 221206",
+  "latitude": 25.32,
+  "longitude": 82.98,
+  "squareFeet": 4350,
+  "encumbrances": ["Mortgage"],
+  "ownership_type": "individual",
+  "source": "DLR"
+}
+```
+
+## Field Descriptions
+
+| Field | Type | Description |
+|-------|------|-------------|
+| propertyId | String | Unique 10-digit identifier |
+| ownerName | String | Full name of property owner |
+| registrationNumber | String | 13-digit registration number |
+| state | String | State location |
+| district | String | District location |
+| subDistrict | String | Sub-division/Taluka |
+| cityOrVillage | String | City or village name |
+| pincode | String | 6-digit postal code |
+| registrationDate | String | Date in YYYY-MM-DD format |
+| address | String | Complete property address |
+| latitude | Number | Location latitude |
+| longitude | Number | Location longitude |
+| squareFeet | Number | Property area in sq ft |
+| encumbrances | Array | List of legal claims |
+| ownership_type | String | Type of ownership |
+| source | String | Data source (DLR/DORSI/CERSAI/MCA21) |
+
+## Error Responses
+
+1. Property Not Found (404):
+```json
+{
+  "error": "Property not found"
+}
+```
+
+2. Server Error (500):
+```json
+{
+  "error": "Error message details"
+}
 ```
 
 ## Notes
-- All APIs return 404 if property is not found
-- Response includes encumbrances from the database
-- Each API adds its own specific loan status
+- All numeric values (latitude, longitude, squareFeet) are returned as numbers, not strings
+- Empty arrays are returned for missing encumbrances
+- Source is determined from propertyId prefix
+- Default ownership_type is "individual"
