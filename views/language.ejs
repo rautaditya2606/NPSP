@@ -67,47 +67,160 @@
     .delay-1 { animation-delay: 0.3s; }
     .delay-2 { animation-delay: 0.6s; }
     .delay-3 { animation-delay: 0.9s; }
+
+    /* Replace sidebar styles with top navbar styles */
+    .top-nav {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: white;
+      z-index: 40;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .main-content {
+      margin-top: 140px; /* Adjust based on navbar height */
+      width: 100%;
+      min-height: calc(100vh - 140px);
+      padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+      .nav-menu.active {
+        display: block;
+      }
+    }
+
+    /* Add new styles for navbar links */
+    .nav-menu a {
+      position: relative;
+      text-decoration: none;
+      padding-bottom: 5px;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      background: rgba(79, 70, 229, 0.6);
+      filter: blur(2px);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .nav-menu a::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      background: rgba(79, 70, 229, 1);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::before {
+      width: 70%;
+    }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center px-4 py-8">
-  <!-- Add fade-in to the overall container -->
-  <div class="bg-white container-shadow rounded-2xl p-12 w-full max-w-5xl backdrop-blur-sm bg-white/90 fade-in">
-    <!-- Logo and Header with fade-in and delay -->
-    <div class="text-center mb-10 fade-in delay-1">
-      <img src="/img/logo.png" alt="Logo" class="mx-auto mb-8 mt-4 transform hover:scale-105 transition-transform duration-300" style="width: 250px; height: auto;">
-      <h1 class="text-3xl font-bold text-black mb-3">
-        Select your Preferred Language
-      </h1>
-      <p class="text-lg text-gray-600 mt-2">वेबसाइट में प्रवेश करने के लिए अपनी पसंदीदा भाषा का चयन करें</p>
+<body class="min-h-screen">
+  <!-- Convert sidebar to top navbar -->
+  <header class="top-nav">
+    <!-- Top Bar -->
+    <div class="px-4 py-2" style="background-color: #0b3558; color: white;">
+      <div class="flex justify-between items-center max-w-7xl mx-auto">
+        <div class="flex items-center">
+          <img src="\img\emblem.png" alt="Emblem" width="24" height="24" class="mr-2">
+          <span class="text-sm">भारत सरकार | Government of India</span>
+        </div>
+        <div class="text-sm">
+          <em>Ministry of Digital Infrastructure & Services</em>
+        </div>
+      </div>
     </div>
 
-    <!-- Language Buttons Grid with fade-in on each button -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center fade-in delay-2">
-      <% const languages = [
-        { code: 'en', name: 'English', welcome: 'Welcome' },
-        { code: 'hi', name: 'हिन्दी', welcome: 'स्वागत है' },
-        { code: 'mr', name: 'मराठी', welcome: 'स्वागत आहे' },
-        { code: 'bn', name: 'বাংলা', welcome: 'স্বাগত' },
-        { code: 'gu', name: 'ગુજરાતી', welcome: 'સ્વાગત છે' },
-        { code: 'ml', name: 'മലയാളം', welcome: 'സ്വാഗതം' },
-        { code: 'as', name: 'অসমীয়া', welcome: 'স্বাগতম' },
-        { code: 'ta', name: 'தமிழ்', welcome: 'வணக்கம்' },
-        { code: 'kn', name: 'ಕನ್ನಡ', welcome: 'ಸ್ವಾಗತ' },
-        { code: 'te', name: 'తెలుగు', welcome: 'స్వాగతం' }
-      ] %>
-
-      <% languages.forEach((lang, index) => { %>
-        <!-- Stagger each form's fade-in via inline animation-delay -->
-        <form action="/set-language" method="POST" class="w-full fade-in" style="animation-delay: <%= 0.3 + index * 0.2 %>s">
-          <input type="hidden" name="language" value="<%= lang.code %>">
-          <button type="submit" class="lang-btn w-full py-4 px-6 rounded-xl text-gray-700 font-medium relative">
-            <span class="lang-text relative z-10 transition-opacity duration-300"><%= lang.name %></span>
-            <span class="welcome-text text-indigo-600 font-semibold"><%= lang.welcome %></span>
-          </button>
-        </form>
-      <% }); %>
+    <!-- Navigation Section -->
+    <div class="px-4 py-2">
+      <div class="flex justify-between items-center max-w-7xl mx-auto">
+        <div>
+          <img src="\img\logo.png" alt="Logo" class="h-12">
+        </div>
+        <nav class="nav-menu hidden md:flex items-center space-x-6">
+          <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Home</a>
+          <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Schemes</a>
+          <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Services</a>
+          <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Forms</a>
+          <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Help</a>
+          <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Contact</a>
+        </nav>
+        <button class="md:hidden" id="menu-btn">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
+
+    <!-- Tricolor bar -->
+    <div class="flex w-full" style="height: 4px;">
+      <div class="w-1/3" style="background-color: #ff9933;"></div>
+      <div class="w-1/3" style="background-color: #ffffff;"></div>
+      <div class="w-1/3" style="background-color: #138808;"></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="bg-white container-shadow rounded-2xl p-12 max-w-5xl mx-auto backdrop-blur-sm bg-white/90 fade-in">
+      <div class="text-center mb-10 fade-in delay-1">
+        <h1 class="text-3xl font-bold text-black mb-3">
+          Select your Preferred Language
+        </h1>
+        <p class="text-lg text-gray-600 mt-2">वेबसाइट में प्रवेश करने के लिए अपनी पसंदीदा भाषा का चयन करें</p>
+      </div>
+
+      <!-- Language Buttons Grid with fade-in on each button -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center fade-in delay-2">
+        <% const languages = [
+          { code: 'en', name: 'English', welcome: 'Welcome' },
+          { code: 'hi', name: 'हिन्दी', welcome: 'स्वागत है' },
+          { code: 'mr', name: 'मराठी', welcome: 'स्वागत आहे' },
+          { code: 'bn', name: 'বাংলা', welcome: 'স্বাগত' },
+          { code: 'gu', name: 'ગુજરાતી', welcome: 'સ્વાગત છે' },
+          { code: 'ml', name: 'മലയാളം', welcome: 'സ്വാഗതം' },
+          { code: 'as', name: 'অসমীয়া', welcome: 'স্বাগতম' },
+          { code: 'ta', name: 'தமிழ்', welcome: 'வணக்கம்' },
+          { code: 'kn', name: 'ಕನ್ನಡ', welcome: 'ಸ್ವಾಗತ' },
+          { code: 'te', name: 'తెలుగు', welcome: 'స్వాగతం' }
+        ] %>
+
+        <% languages.forEach((lang, index) => { %>
+          <!-- Stagger each form's fade-in via inline animation-delay -->
+          <form action="/set-language" method="POST" class="w-full fade-in" style="animation-delay: <%= 0.3 + index * 0.2 %>s">
+            <input type="hidden" name="language" value="<%= lang.code %>">
+            <input type="hidden" name="redirect" value="/search">
+            <button type="submit" class="lang-btn w-full py-4 px-6 rounded-xl text-gray-700 font-medium relative">
+              <span class="lang-text relative z-10 transition-opacity duration-300"><%= lang.name %></span>
+              <span class="welcome-text text-indigo-600 font-semibold"><%= lang.welcome %></span>
+            </button>
+          </form>
+        <% }); %>
+      </div>
+    </div>
+  </main>
 
   <script>
     // Add ripple effect to buttons

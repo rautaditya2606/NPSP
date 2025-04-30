@@ -12,6 +12,9 @@
 	"NPSP": "என்டிபிஎஸ்‌பி",
 	"Profile": "சுயவிவரம்",
 	"Hi": "வணக்கம்",
+	"Welcome": "வணக்கம்",
+	"Select your Preferred Language": "உங்கள் விருப்பமான மொழியைத் தேர்ந்தெடுக்கவும்",
+	"Language Selection": "மொழி தேர்வு",
 	"Result Found": "முடிவு கிடைத்தது",
 	"In": "இல்",
 	"No location found": "எந்த இடமும் கிடைக்கவில்லை",
@@ -24,5 +27,13 @@
 	"Bedrooms": "அறைகள்",
 	"Registration": "பதிவு",
 	"Location": "இடம்",
-	"Coordinates": "இடங்களின் விவரங்கள்"
+	"Coordinates": "இடங்களின் விவரங்கள்",
+	"Home": "முகப்பு",
+	"Schemes": "திட்டங்கள்",
+	"Services": "சேவைகள்",
+	"Forms": "படிவங்கள்",
+	"Help": "உதவி",
+	"Contact": "தொடர்பு",
+	"Digital Property Verification Portal": "டிஜிட்டல் சொத்து சரிபார்ப்பு போர்டல்",
+	"Government of India's official platform for property record verification.": "இந்திய அரசின் அதிகாரப்பூர்வ சொத்து பதிவு சரிபார்ப்பு தளம்."
 }

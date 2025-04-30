@@ -27,27 +27,6 @@
       flex-direction: column;
     }
 
-    .navbar {
-      background: white;
-      padding: 0.75rem 1.5rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      z-index: 1000;
-    }
-
-    .nav-btn {
-      background: #f8f9fa;
-      border: none;
-      padding: 0.5rem 1.25rem;
-      border-radius: 8px;
-      font-weight: 500;
-      color: #1a1a1a;
-    }
-
-    .nav-btn.active {
-      background: var(--primary-blue);
-      color: white;
-    }
-
     .map-container {
       flex: 1;
       position: relative;
@@ -283,6 +262,7 @@
       opacity: 1;
     }
 
+    /* Update modal styles to remove scrollbar */
     .modal-content {
       position: relative;
       width: 90%;
@@ -294,6 +274,8 @@
       overflow: hidden;
       transform: translateY(20px);
       transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
 
     .property-modal.active .modal-content {
@@ -335,7 +317,13 @@
     .modal-body {
       padding: 24px;
       overflow-y: auto;
-      max-height: calc(90vh - 300px);
+      max-height: 100%;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .modal-body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
     }
 
     .modal-section {
@@ -373,71 +361,230 @@
       justify-content: center;
       color: var(--primary-blue);
     }
+
+    /* Update navbar styles */
+    .top-nav {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: white;
+      z-index: 1050;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .nav-menu.active {
+        display: block;
+      }
+      .nav-menu a {
+        display: block;
+        padding: 0.5rem 0;
+      }
+    }
+
+    /* Add export button styles */
+    .export-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    .export-btn:hover {
+      transform: scale(1.1);
+      background: white;
+    }
+
+    .export-btn i {
+      color: var(--primary-blue);
+      font-size: 1.1rem;
+    }
+
+    /* Add modal export button styles */
+    .modal-export-btn {
+      position: sticky;
+      bottom: 24px;
+      margin-left: auto;
+      background: var(--primary-blue);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(65, 105, 225, 0.2);
+    }
+
+    .modal-export-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(65, 105, 225, 0.3);
+    }
+
+    .modal-export-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* Add error state styles */
+    .error-container {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .error-icon {
+      font-size: 3rem;
+      color: #dc3545;
+      margin-bottom: 1rem;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      margin: 2rem;
+    }
   </style>
 </head>
 <body>
+  <!-- Updated Navbar -->
+  <header class="top-nav">
+    <div class="py-2" style="background-color: #0b3558; color: white;">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <img src="\img\emblem.png" alt="Emblem" width="24" height="24" class="me-2">
+            <span>भारत सरकार | Government of India</span>
+          </div>
+          <div>
+            <em>Ministry of Digital Infrastructure & Services</em>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container py-2">
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="/" class="navbar-brand">
+          <img src="\img\logo.png" alt="Logo" height="48">
+        </a>
+        
+        <nav class="nav-menu d-none d-md-flex align-items-center">
+          <a href="/" class="nav-link">Home</a>
+          <a href="#" class="nav-link">Schemes</a>
+          <a href="#" class="nav-link">Services</a>
+          <a href="#" class="nav-link">Forms</a>
+          <a href="#" class="nav-link">Help</a>
+          <a href="#" class="nav-link">Contact</a>
+        </nav>
+
+        <button class="btn d-md-none" id="menu-btn">
+          <i class="bi bi-list fs-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="flex-grow-1" style="height: 4px; background-color: #ff9933;"></div>
+      <div class="flex-grow-1" style="height: 4px; background-color: #ffffff;"></div>
+      <div class="flex-grow-1" style="height: 4px; background-color: #138808;"></div>
+    </div>
+  </header>
+
+  <!-- Add error handling in the main content -->
   <div class="main-container">
-    <!-- Navbar -->
-    <nav class="navbar">
-      <div class="d-flex justify-content-between align-items-center w-100">
-        <div class="d-flex align-items-center gap-4">
-          <a href="/search" class="text-decoration-none text-dark">
-            <i class="bi bi-arrow-left fs-5"></i>
-          </a>
-          <button class="nav-btn active">
-            <i class="bi bi-map me-2"></i>Map
+    <% if (typeof results === 'undefined' || results.length === 0) { %>
+      <div class="no-results">
+        <i class="bi bi-search" style="font-size: 3rem; color: #6c757d;"></i>
+        <h2 class="mt-3"><%= __('No Results Found') %></h2>
+        <p class="text-muted"><%= __('Try adjusting your search criteria') %></p>
+        <a href="/search" class="btn btn-primary mt-3">
+          <i class="bi bi-arrow-left"></i> <%= __('Back to Search') %>
+        </a>
+      </div>
+    <% } else { %>
+      <!-- Map Container -->
+      <div class="map-container">
+        <div id="map"></div>
+        
+        <!-- Map Controls -->
+        <div class="map-controls">
+          <button class="map-control-btn">
+            <i class="bi bi-plus-lg"></i>
+          </button>
+          <button class="map-control-btn">
+            <i class="bi bi-dash-lg"></i>
           </button>
         </div>
-        <div class="d-flex align-items-center gap-3">
-          <img src="https://i.postimg.cc/PxTybjYS/b7xwuj.jpg" class="rounded-circle" width="36" height="36" alt="Profile">
-          <span class="fw-medium"><%= results[0].ownerName %></span>
-        </div>
-      </div>
-    </nav>
 
-    <!-- Map Container -->
-    <div class="map-container">
-      <div id="map"></div>
-      
-      <!-- Map Controls -->
-      <div class="map-controls">
-        <button class="map-control-btn">
-          <i class="bi bi-plus-lg"></i>
-        </button>
-        <button class="map-control-btn">
-          <i class="bi bi-dash-lg"></i>
-        </button>
-      </div>
-
-      <!-- Property Cards -->
-      <div class="property-cards-container">
-        <% results.forEach((property, index) => { %>
-          <div class="property-card" onclick="showPropertyDetails(<%= index %>)">
-            <div class="property-image-container">
-              <img 
-                src="<%= property.imageUrl || 'https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg' %>" 
-                class="property-image"
-                alt="<%= property.name || 'Property' %>"
-                onerror="this.onerror=null; this.src='https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';"
-              >
-            </div>
-            <div class="property-details">
-              <h3 class="property-title"><%= property.name || property.ownerName %></h3>
-              <div class="property-location">
-                <i class="bi bi-geo-alt"></i>
-                <%= property.address %>
+        <!-- Property Cards -->
+        <div class="property-cards-container">
+          <% results.forEach((property, index) => { %>
+            <div class="property-card" onclick="showPropertyDetails(<%= index %>)">
+              <div class="property-image-container">
+                <button class="export-btn" onclick="exportPropertyReport(<%= index %>); event.stopPropagation();">
+                  <i class="bi bi-download"></i>
+                </button>
+                <img 
+                  src="<%= property.imageUrl || 'https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg' %>" 
+                  class="property-image"
+                  alt="<%= property.name || 'Property' %>"
+                  onerror="this.onerror=null; this.src='https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';"
+                >
               </div>
-              <div class="property-features">
-                <div class="feature-item">
-                  <i class="bi bi-rulers feature-icon"></i>
-                  <%= property.squareFeet || 'N/A' %> sqft
+              <div class="property-details">
+                <h3 class="property-title">
+                  <%= property.name || property.ownerName || __('Property Name Not Available') %>
+                </h3>
+                <div class="property-location">
+                  <i class="bi bi-geo-alt"></i>
+                  <%= property.address || __('Address Not Available') %>
+                </div>
+                <div class="property-features">
+                  <div class="feature-item">
+                    <i class="bi bi-rulers feature-icon"></i>
+                    <%= property.squareFeet ? `${property.squareFeet} sqft` : __('Area Not Available') %>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        <% }); %>
+          <% }); %>
+        </div>
       </div>
-    </div>
+    <% } %>
   </div>
 
   <div class="property-modal" id="propertyModal">
@@ -453,14 +600,14 @@
         <div id="modalAddress" class="property-location mb-4"></div>
         
         <div class="modal-section">
-          <div class="modal-section-title">Property Details</div>
+          <div class="modal-section-title"><%= __('Property Details') %></div>
           <div class="property-info-grid">
             <div class="info-item">
               <div class="info-icon">
                 <i class="bi bi-rulers"></i>
               </div>
               <div>
-                <div class="text-muted">Area</div>
+                <div class="text-muted"><%= __('Area') %></div>
                 <div id="modalArea"></div>
               </div>
             </div>
@@ -469,7 +616,7 @@
                 <i class="bi bi-geo-alt"></i>
               </div>
               <div>
-                <div class="text-muted">State</div>
+                <div class="text-muted"><%= __('State') %></div>
                 <div id="modalState"></div>
               </div>
             </div>
@@ -478,7 +625,7 @@
                 <i class="bi bi-geo"></i>
               </div>
               <div>
-                <div class="text-muted">District</div>
+                <div class="text-muted"><%= __('District') %></div>
                 <div id="modalDistrict"></div>
               </div>
             </div>
@@ -487,7 +634,7 @@
                 <i class="bi bi-pin-map"></i>
               </div>
               <div>
-                <div class="text-muted">Sub District</div>
+                <div class="text-muted"><%= __('Sub District') %></div>
                 <div id="modalSubDistrict"></div>
               </div>
             </div>
@@ -496,7 +643,7 @@
                 <i class="bi bi-buildings"></i>
               </div>
               <div>
-                <div class="text-muted">City/Village</div>
+                <div class="text-muted"><%= __('City/Village') %></div>
                 <div id="modalCityVillage"></div>
               </div>
             </div>
@@ -505,7 +652,7 @@
                 <i class="bi bi-123"></i>
               </div>
               <div>
-                <div class="text-muted">Pincode</div>
+                <div class="text-muted"><%= __('Pincode') %></div>
                 <div id="modalPincode"></div>
               </div>
             </div>
@@ -514,7 +661,7 @@
                 <i class="bi bi-geo-fill"></i>
               </div>
               <div>
-                <div class="text-muted">Coordinates</div>
+                <div class="text-muted"><%= __('Coordinates') %></div>
                 <div id="modalCoordinates"></div>
               </div>
             </div>
@@ -522,14 +669,14 @@
         </div>
 
         <div class="modal-section">
-          <div class="modal-section-title">Registration Information</div>
+          <div class="modal-section-title"><%= __('Registration Information') %></div>
           <div class="property-info-grid">
             <div class="info-item">
               <div class="info-icon">
                 <i class="bi bi-person"></i>
               </div>
               <div>
-                <div class="text-muted">Owner</div>
+                <div class="text-muted"><%= __('Owner') %></div>
                 <div id="modalOwner"></div>
               </div>
             </div>
@@ -538,7 +685,7 @@
                 <i class="bi bi-hash"></i>
               </div>
               <div>
-                <div class="text-muted">Property ID</div>
+                <div class="text-muted"><%= __('Property ID') %></div>
                 <div id="modalPropertyId"></div>
               </div>
             </div>
@@ -547,7 +694,7 @@
                 <i class="bi bi-card-text"></i>
               </div>
               <div>
-                <div class="text-muted">Registration No.</div>
+                <div class="text-muted"><%= __('Registration No.') %></div>
                 <div id="modalRegistration"></div>
               </div>
             </div>
@@ -556,7 +703,7 @@
                 <i class="bi bi-calendar-event"></i>
               </div>
               <div>
-                <div class="text-muted">Registration Date</div>
+                <div class="text-muted"><%= __('Registration Date') %></div>
                 <div id="modalRegistrationDate"></div>
               </div>
             </div>
@@ -564,19 +711,29 @@
         </div>
 
         <div class="modal-section">
-          <div class="modal-section-title">Additional Information</div>
+          <div class="modal-section-title"><%= __('Additional Information') %></div>
           <div class="property-info-grid">
             <div class="info-item" style="grid-column: 1 / -1;">
               <div class="info-icon">
                 <i class="bi bi-exclamation-circle"></i>
               </div>
               <div>
-                <div class="text-muted">Encumbrances</div>
+                <div class="text-muted"><%= __('Encumbrances') %></div>
                 <div id="modalEncumbrances"></div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Add export button after the last section -->
+        <button 
+          class="modal-export-btn" 
+          onclick="exportPropertyReport(currentPropertyIndex)"
+          type="button"
+        >
+          <i class="bi bi-download"></i>
+          <%= __('Export Report') %>
+        </button>
       </div>
     </div>
   </div>
@@ -585,139 +742,166 @@
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const map = L.map('map', {
-        zoomControl: false // Disable default zoom controls
-      });
-      
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
+      try {
+        const map = L.map('map', {
+          zoomControl: false // Disable default zoom controls
+        });
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-      const markers = [];
-      const markerCounts = {};
-      
-      <% results.forEach((property, index) => { %>
-        (function() {
-          let lat = parseFloat("<%= property.latitude %>");
-          let lng = parseFloat("<%= property.longitude %>");
-          const key = lat.toFixed(6) + "_" + lng.toFixed(6);
-          let count = markerCounts[key] || 0;
-          
-          if(count > 0) {
-            lat += count * 0.0001;
-            lng += count * 0.0001;
-          }
-          markerCounts[key] = count + 1;
+        const markers = [];
+        const markerCounts = {};
+        
+        <% results.forEach((property, index) => { %>
+          try {
+            let lat = parseFloat("<%= property.latitude %>");
+            let lng = parseFloat("<%= property.longitude %>");
+            const key = lat.toFixed(6) + "_" + lng.toFixed(6);
+            let count = markerCounts[key] || 0;
+            
+            if (isNaN(lat) || isNaN(lng)) {
+              console.error('Invalid coordinates for property:', <%= index %>);
+              return;
+            }
+            
+            if (count > 0) {
+              lat += count * 0.0001;
+              lng += count * 0.0001;
+            }
+            markerCounts[key] = count + 1;
 
-          // Custom marker icon
-          const markerIcon = L.divIcon({
-            html: `<div style="
-              background-color: white;
-              border: 2px solid #4169e1;
-              border-radius: 50%;
-              width: 32px;
-              height: 32px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            ">
-              <i class="bi bi-house-door" style="color: #4169e1;"></i>
-            </div>`,
-            className: 'custom-marker',
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-          });
+            // Custom marker icon
+            const markerIcon = L.divIcon({
+              html: `<div style="
+                background-color: white;
+                border: 2px solid #4169e1;
+                border-radius: 50%;
+                width: 32px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+              ">
+                <i class="bi bi-house-door" style="color: #4169e1;"></i>
+              </div>`,
+              className: 'custom-marker',
+              iconSize: [32, 32],
+              iconAnchor: [16, 16]
+            });
 
-          const marker = L.marker([lat, lng], { icon: markerIcon })
-            .bindPopup(`
-              <div class="popup-content">
-                <img 
-                  src="${'<%= property.imageUrl || "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg" %>'}"
-                  class="popup-image"
-                  onerror="this.onerror=null; this.src='https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';"
-                  alt="${'<%= property.name || "Property" %>'}"
-                >
-                <div class="popup-details">
-                  <div class="popup-title">${'<%= property.name || property.ownerName %>'}</div>
-                  <div class="popup-address">
-                    <i class="bi bi-geo-alt"></i>
-                    ${'<%= property.address %>'}
-                  </div>
-                  <div class="popup-features">
-                    <div>
-                      <i class="bi bi-rulers feature-icon"></i>
-                      ${'<%= property.squareFeet || "N/A" %>'} sqft
+            const marker = L.marker([lat, lng], { icon: markerIcon })
+              .bindPopup(`
+                <div class="popup-content">
+                  <img 
+                    src="${'<%= property.imageUrl || "https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg" %>'}"
+                    class="popup-image"
+                    onerror="this.onerror=null; this.src='https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';"
+                    alt="${'<%= property.name || "Property" %>'}"
+                  >
+                  <div class="popup-details">
+                    <div class="popup-title">${'<%= property.name || property.ownerName %>'}</div>
+                    <div class="popup-address">
+                      <i class="bi bi-geo-alt"></i>
+                      ${'<%= property.address %>'}
                     </div>
-                    <div>
-                      <i class="bi bi-door-open feature-icon"></i>
-                      ${'<%= property.bedrooms || "4" %>'} Beds
-                    </div>
-                    <div>
-                      <i class="bi bi-droplet feature-icon"></i>
-                      ${'<%= property.bathrooms || "2" %>'} Baths
+                    <div class="popup-features">
+                      <div>
+                        <i class="bi bi-rulers feature-icon"></i>
+                        ${'<%= property.squareFeet || "N/A" %>'} sqft
+                      </div>
+                      <div>
+                        <i class="bi bi-door-open feature-icon"></i>
+                        ${'<%= property.bedrooms || "4" %>'} Beds
+                      </div>
+                      <div>
+                        <i class="bi bi-droplet feature-icon"></i>
+                        ${'<%= property.bathrooms || "2" %>'} Baths
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            `, {
-              maxWidth: 280,
-              className: 'custom-popup'
-            });
-          
-          markers.push(marker);
-          marker.addTo(map);
-        })();
-      <% }); %>
+              `, {
+                maxWidth: 280,
+                className: 'custom-popup'
+              });
+            
+            markers.push(marker);
+            marker.addTo(map);
+          } catch (err) {
+            console.error('Error creating marker for property:', <%= index %>, err);
+          }
+        <% }); %>
 
-      if (markers.length > 0) {
-        const group = new L.featureGroup(markers);
-        const bounds = group.getBounds();
-        if (bounds.isValid() && bounds.getNorthEast().equals(bounds.getSouthWest())) {
-          map.setView(bounds.getCenter(), 15);
-        } else {
-          map.fitBounds(bounds.pad(0.1));
+        if (markers.length > 0) {
+          const group = new L.featureGroup(markers);
+          const bounds = group.getBounds();
+          if (bounds.isValid() && bounds.getNorthEast().equals(bounds.getSouthWest())) {
+            map.setView(bounds.getCenter(), 15);
+          } else {
+            map.fitBounds(bounds.pad(0.1));
+          }
         }
-      }
 
-      // Handle map control buttons
-      document.querySelectorAll('.map-control-btn').forEach((btn, index) => {
-        btn.addEventListener('click', () => {
-          if (index === 0) map.zoomIn();
-          else if (index === 1) map.zoomOut();
-          // Handle fullscreen toggle if needed
+        // Handle map control buttons
+        document.querySelectorAll('.map-control-btn').forEach((btn, index) => {
+          btn.addEventListener('click', () => {
+            if (index === 0) map.zoomIn();
+            else if (index === 1) map.zoomOut();
+            // Handle fullscreen toggle if needed
+          });
         });
-      });
+      } catch (err) {
+        console.error('Error initializing map:', err);
+        document.getElementById('map').innerHTML = `
+          <div class="error-container">
+            <i class="bi bi-exclamation-triangle error-icon"></i>
+            <h3>${'<%= __("Error Loading Map") %>'}</h3>
+            <p class="text-muted">${'<%= __("Please try refreshing the page") %>'}</p>
+          </div>
+        `;
+      }
     });
 
     // Store property data globally
     const propertyData = <%- JSON.stringify(results) %>;
-    
+    let currentPropertyIndex = 0;
+
     function showPropertyDetails(index) {
-      const property = propertyData[index];
-      const modal = document.getElementById('propertyModal');
-      
-      // Update modal content
-      document.getElementById('modalImage').src = property.imageUrl || 'https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';
-      document.getElementById('modalTitle').textContent = property.name || property.ownerName;
-      document.getElementById('modalAddress').innerHTML = `<i class="bi bi-geo-alt"></i> ${property.address || 'N/A'}`;
-      document.getElementById('modalArea').textContent = `${property.squareFeet || 'N/A'} sqft`;
-      document.getElementById('modalState').textContent = property.state || 'N/A';
-      document.getElementById('modalDistrict').textContent = property.district || 'N/A';
-      document.getElementById('modalSubDistrict').textContent = property.subDistrict || 'N/A';
-      document.getElementById('modalCityVillage').textContent = property.cityOrVillage || 'N/A';
-      document.getElementById('modalPincode').textContent = property.pincode || 'N/A';
-      document.getElementById('modalCoordinates').textContent = `${property.latitude || 'N/A'}, ${property.longitude || 'N/A'}`;
-      document.getElementById('modalOwner').textContent = property.ownerName || 'N/A';
-      document.getElementById('modalPropertyId').textContent = property.propertyId || 'N/A';
-      document.getElementById('modalRegistration').textContent = property.registrationNumber || 'N/A';
-      document.getElementById('modalRegistrationDate').textContent = property.registrationDate || 'N/A';
-      document.getElementById('modalEncumbrances').textContent = property.encumbrances || 'None';
-      
-      // Show modal with animation
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      try {
+        currentPropertyIndex = index;  // Store the current property index
+        const property = propertyData[index];
+        if (!property) throw new Error('Property data not found');
+        
+        const modal = document.getElementById('propertyModal');
+        if (!modal) throw new Error('Modal element not found');
+        
+        // Update modal content with null checks
+        document.getElementById('modalImage').src = property.imageUrl || 'https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';
+        document.getElementById('modalTitle').textContent = property.name || property.ownerName || '<%= __("Name Not Available") %>';
+        document.getElementById('modalAddress').innerHTML = `<i class="bi bi-geo-alt"></i> ${property.address || '<%= __("N/A") %>'}`;
+        document.getElementById('modalArea').textContent = `${property.squareFeet || '<%= __("N/A") %>'} <%= __("sqft") %>`;
+        document.getElementById('modalState').textContent = property.state || '<%= __("N/A") %>';
+        document.getElementById('modalDistrict').textContent = property.district || '<%= __("N/A") %>';
+        document.getElementById('modalSubDistrict').textContent = property.subDistrict || '<%= __("N/A") %>';
+        document.getElementById('modalCityVillage').textContent = property.cityOrVillage || '<%= __("N/A") %>';
+        document.getElementById('modalPincode').textContent = property.pincode || '<%= __("N/A") %>';
+        document.getElementById('modalCoordinates').textContent = `${property.latitude || '<%= __("N/A") %>'}, ${property.longitude || '<%= __("N/A") %>'}`;
+        document.getElementById('modalOwner').textContent = property.ownerName || '<%= __("N/A") %>';
+        document.getElementById('modalPropertyId').textContent = property.propertyId || '<%= __("N/A") %>';
+        document.getElementById('modalRegistration').textContent = property.registrationNumber || '<%= __("N/A") %>';
+        document.getElementById('modalRegistrationDate').textContent = property.registrationDate || '<%= __("N/A") %>';
+        document.getElementById('modalEncumbrances').textContent = property.encumbrances || '<%= __("None") %>';
+        
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } catch (err) {
+        console.error('Error showing property details:', err);
+        alert('<%= __("Error loading property details. Please try again.") %>');
+      }
     }
 
     function closePropertyModal() {
@@ -732,6 +916,59 @@
         closePropertyModal();
       }
     });
+
+    function exportPropertyReport(index) {
+      try {
+        const property = propertyData[index];
+        if (!property) throw new Error('Property data not found');
+        
+        // Create report content with null checks
+        const reportContent = `
+Property Report
+
+Property Details:
+----------------
+Owner Name: ${property.ownerName || '<%= __("Not Available") %>'}
+Property ID: ${property.propertyId || '<%= __("Not Available") %>'}
+Registration Number: ${property.registrationNumber || '<%= __("Not Available") %>'}
+Registration Date: ${property.registrationDate || '<%= __("Not Available") %>'}
+
+Location Details:
+----------------
+Address: ${property.address || '<%= __("Not Available") %>'}
+State: ${property.state || '<%= __("Not Available") %>'}
+District: ${property.district || '<%= __("Not Available") %>'}
+Sub District: ${property.subDistrict || '<%= __("Not Available") %>'}
+City/Village: ${property.cityOrVillage || '<%= __("Not Available") %>'}
+Pincode: ${property.pincode || '<%= __("Not Available") %>'}
+Coordinates: ${property.latitude || '<%= __("Not Available") %>'}, ${property.longitude || '<%= __("Not Available") %>'}
+
+Property Specifications:
+----------------------
+Area: ${property.squareFeet || '<%= __("Not Available") %>'} sqft
+
+Additional Information:
+---------------------
+Encumbrances: ${property.encumbrances || '<%= __("None") %>'}
+
+Generated on: ${new Date().toLocaleString()}
+        `.trim();
+
+        // Create and trigger download
+        const blob = new Blob([reportContent], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `property_report_${property.propertyId || 'unknown'}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } catch (err) {
+        console.error('Error exporting property report:', err);
+        alert('<%= __("Error generating report. Please try again.") %>');
+      }
+    }
   </script>
 </body>
 </html>

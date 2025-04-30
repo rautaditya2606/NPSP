@@ -14,13 +14,25 @@ app.use(cookieParser());  // Ensure cookie-parser is loaded first
 app.use(expressLayouts);
 app.set('layout', 'layout');
 
+// Update i18n configuration
 i18n.configure({
-    locales: ['hi', 'bn', 'mr', 'te', 'ta', 'gu', 'ur', 'kn', 'or', 'ml', 'pa', 'as', 'mai', 'sat', 'ks'],
+    locales: ['en', 'hi', 'bn', 'mr', 'te', 'ta', 'gu', 'ml', 'kn'],
     defaultLocale: 'en',
     cookie: 'lang',
-    directory: path.join(__dirname, 'locales')
+    directory: path.join(__dirname, 'locales'),
+    objectNotation: true,
+    updateFiles: false
 });
 app.use(i18n.init);
+
+// Add language middleware
+app.use((req, res, next) => {
+    const lang = req.cookies.lang || 'en';
+    res.locals.currentLocale = lang; // Make locale available to all views
+    res.locals.availableLocales = i18n.getLocales();
+    req.setLocale(lang);
+    next();
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -54,7 +66,7 @@ app.get("/search", (req, res) => {
 app.post('/set-language', (req, res) => {
     const language = req.body.language;
     res.cookie('lang', language, { 
-      maxAge: 24 * 60 * 60 * 1000, 
+      maxAge: 900000, 
       httpOnly: true, 
       path: '/',
       sameSite: 'Lax'
@@ -70,18 +82,42 @@ app.get('/test-translations', (req, res) => {
   });
 });
 
-// Add route for showProperty
+// Helper function to translate property fields using req.__
+function translateProperty(property, translator) {
+  // Update only the fields that need translation
+  property.state = translator(property.state);
+  property.district = translator(property.district);
+  property.subDistrict = translator(property.subDistrict);
+  property.cityOrVillage = translator(property.cityOrVillage);
+  // For encumbrances
+  if (Array.isArray(property.encumbrances)) {
+    property.encumbrances = property.encumbrances.map(e => translator(e));
+  }
+  return property;
+}
+
+// Example route for displaying results
+app.get('/results', (req, res, next) => {
+  let results = require('./data/DLRData.json');
+  // Translate each property before rendering
+  results = results.map(prop => translateProperty(prop, req.__));
+  res.render('results', { results: results, locale: req.locale, __: req.__ });
+});
+
+// Update /showProperty route similarly
 app.get('/showProperty', (req, res) => {
   const propertyId = req.query.propertyId;
-  // Load data from multiple sources
   const cersaiData = require('./data/CERSAIData.json');
   const dlrData = require('./data/DLRData.json');
-  // Search in CERSAIData first, then DLRData if not found
   let property = cersaiData.find(p => p.propertyId === propertyId);
   if (!property) {
     property = dlrData.find(p => p.propertyId === propertyId);
   }
-  res.render('showProperty', { property: property, locale: req.getLocale(), __: res.__ });
+  // Apply translation if property is found
+  if (property) {
+    property = translateProperty(property, req.__);
+  }
+  res.render('showProperty', { property: property, locale: req.locale, __: req.__ });
 });
 
 app.use('/', searchRoutes);
