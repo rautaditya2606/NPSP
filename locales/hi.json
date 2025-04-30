@@ -88,5 +88,19 @@
 	"Download Report": "रिपोर्ट डाउनलोड करें",
 	"Close": "बंद करें",
 	"Export": "निर्यात करें",
-	"Logo": "लोगो"
+	"Logo": "लोगो",
+	"Contact Us": "संपर्क करें",
+	"Government Portal": "सरकारी पोर्टल",
+	"Send us your queries or feedback": "अपनी पूछताछ या प्रतिक्रिया भेजें",
+	"Full Name": "पूरा नाम",
+	"Enter your full name": "अपना पूरा नाम दर्ज करें",
+	"Email Address": "ईमेल पता",
+	"Enter your email": "अपना ईमेल दर्ज करें",
+	"Subject": "विषय",
+	"Enter subject": "विषय दर्ज करें",
+	"Message": "संदेश",
+	"Type your message here": "अपना संदेश यहाँ लिखें",
+	"Send Message": "संदेश भेजें",
+	"An error occurred. Please try again later.": "एक त्रुटि हुई। कृपया बाद में पुनः प्रयास करें।",
+	"Sending...": "भेज रहा है..."
 }

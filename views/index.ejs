@@ -516,21 +516,11 @@
       });
     });
 
-    // Initialize reCAPTCHA if needed
-    window.onload = function() {
-      if (typeof grecaptcha !== 'undefined') {
-        grecaptcha.ready(function() {
-          // reCAPTCHA initialization code if needed
-        });
-      }
-    }
-
     function changeLanguage(lang) {
       document.cookie = `lang=${lang};path=/`;
       window.location.reload();
     }
   </script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

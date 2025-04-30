@@ -63,5 +63,20 @@
 	"Enter Registration Number": "Enter Registration Number",
 	"Welcome": "സ്വാഗതം",
 	"Select your Preferred Language": "നിങ്ങളുടെ ഇഷ്ടമുള്ള ഭാഷ തിരഞ്ഞെടുക്കുക",
-	"Language Selection": "ഭാഷാ തിരഞ്ഞെടുപ്പ്"
+	"Language Selection": "ഭാഷാ തിരഞ്ഞെടുപ്പ്",
+	"Contact Us": "ഞങ്ങളെ ബന്ധപ്പെടുക",
+	"Government Portal": "സർക്കാർ പോർട്ടൽ",
+	"Send us your queries or feedback": "നിങ്ങളുടെ ചോദ്യങ്ങളോ പ്രതികരണങ്ങളോ അയയ്ക്കുക",
+	"Full Name": "മുഴുവൻ പേര്",
+	"Enter your full name": "നിങ്ങളുടെ മുഴുവൻ പേര് നൽകുക",
+	"Email Address": "ഇമെയിൽ വിലാസം",
+	"Enter your email": "നിങ്ങളുടെ ഇമെയിൽ നൽകുക",
+	"Subject": "വിഷയം",
+	"Enter subject": "വിഷയം നൽകുക",
+	"Message": "സന്ദേശം",
+	"Type your message here": "നിങ്ങളുടെ സന്ദേശം ഇവിടെ ടൈപ്പ് ചെയ്യുക",
+	"Send Message": "സന്ദേശം അയയ്ക്കുക",
+	"Government of India": "ഇന്ത്യ സർക്കാർ",
+	"Ministry of Digital Infrastructure & Services": "ഡിജിറ്റൽ അടിസ്ഥാന സൗകര്യങ്ങളും സേവനങ്ങളും മന്ത്രാലയം",
+	"Home": "ഹോം"
 }

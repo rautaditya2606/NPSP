@@ -134,5 +134,17 @@
 	"Area Not Available": "Area Not Available",
 	"Welcome": "Welcome",
 	"Select your Preferred Language": "Select your Preferred Language",
-	"Language Selection": "Language Selection"
+	"Language Selection": "Language Selection",
+	"Contact Us": "Contact Us",
+	"Government Portal": "Government Portal",
+	"Send us your queries or feedback": "Send us your queries or feedback",
+	"Full Name": "Full Name",
+	"Enter your full name": "Enter your full name",
+	"Email Address": "Email Address",
+	"Enter your email": "Enter your email",
+	"Subject": "Subject",
+	"Enter subject": "Enter subject",
+	"Message": "Message",
+	"Type your message here": "Type your message here",
+	"Send Message": "Send Message"
 }
