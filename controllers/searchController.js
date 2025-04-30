@@ -4,6 +4,7 @@ const axios = require('axios');
 
 const dlrData = require('../data/DLRData.json');
 const cersaiData = require('../data/CERSAIData.json');
+const dorsiData = require('../data/DORSIData.json');
 
 // Utility to load JSON data files
 function loadJSON(relativePath) {
@@ -16,33 +17,46 @@ exports.renderSearchForm = (req, res) => {
 
 exports.processSearch = async (req, res) => {
     try {
-        console.log('Search criteria:', req.body); // Debug log
-
+        console.log('Search criteria:', req.body);
         const { method, firstName, lastName, searchValue } = req.body;
+        
+        // Combine all data sources
+        const allProperties = [...dlrData, ...cersaiData, ...dorsiData];
         let results = [];
 
         switch (method) {
             case 'ownerName':
-                const fullName = `${firstName} ${lastName}`.toLowerCase().trim();
-                results = [...dlrData, ...cersaiData].filter(property => 
-                    property.ownerName.toLowerCase().includes(fullName)
+                // Normalize name search
+                const searchName = `${firstName || ''} ${lastName || ''}`.trim().toLowerCase();
+                if (!searchName) break;
+                
+                results = allProperties.filter(property => 
+                    property.ownerName && 
+                    property.ownerName.toLowerCase().includes(searchName)
                 );
                 break;
 
             case 'propertyId':
-                results = [...dlrData, ...cersaiData].filter(property => 
-                    property.propertyId === searchValue
+                // Exact match for propertyId
+                if (!searchValue) break;
+                results = allProperties.filter(property => 
+                    property.propertyId && 
+                    property.propertyId.toString() === searchValue.toString()
                 );
                 break;
 
             case 'registrationNumber':
-                results = [...dlrData, ...cersaiData].filter(property => 
-                    property.registrationNumber === searchValue
+                // Exact match for registrationNumber
+                if (!searchValue) break;
+                results = allProperties.filter(property => 
+                    property.registrationNumber && 
+                    property.registrationNumber.toString() === searchValue.toString()
                 );
                 break;
         }
 
-        console.log('Search results:', results); // Debug log
+        console.log(`Search Method: ${method}`);
+        console.log(`Found ${results.length} results`);
 
         return res.render('results', {
             results,
