@@ -67,11 +67,20 @@ app.post('/set-language', (req, res) => {
     const language = req.body.language;
     res.cookie('lang', language, { 
       maxAge: 900000, 
-      httpOnly: true, 
-      path: '/',
-      sameSite: 'Lax'
+      httpOnly: true,
+      path: '/'
     });
+    req.setLocale(language);
     res.redirect('/search');
+});
+
+// Add middleware to ensure language is set for all routes
+app.use((req, res, next) => {
+    const lang = req.cookies.lang || 'en';
+    req.setLocale(lang);
+    res.locals.currentLocale = lang;
+    res.locals.availableLocales = i18n.getLocales();
+    next();
 });
 
 // Test route to verify translations

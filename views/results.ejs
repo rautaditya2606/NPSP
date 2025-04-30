@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= locale %>">
+<html lang="<%= currentLocale %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <style>
+    /* (Existing CSS content remains unchanged) */
+    
     :root {
       --primary-blue: #4169e1;
       --card-shadow: 0 8px 24px rgba(0,0,0,0.12);
@@ -20,19 +22,19 @@
       overflow: hidden;
       font-family: 'Inter', -apple-system, sans-serif;
     }
-
+    
     .main-container {
       height: 100vh;
       display: flex;
       flex-direction: column;
     }
-
+    
     .map-container {
       flex: 1;
       position: relative;
       width: 100%;
     }
-
+    
     #map {
       position: absolute;
       top: 0;
@@ -41,7 +43,7 @@
       height: 100%;
       z-index: 1;
     }
-
+    
     .property-cards-container {
       position: absolute;
       bottom: 24px;
@@ -53,7 +55,7 @@
       gap: 20px;
       padding: 4px;
     }
-
+    
     .property-card {
       flex: 0 0 auto;
       width: 320px;
@@ -64,11 +66,11 @@
       transition: all 0.3s ease;
       cursor: pointer;
     }
-
+    
     .property-card:hover {
       transform: translateY(-4px);
     }
-
+    
     .property-image {
       width: 100%;
       height: 200px;
@@ -76,7 +78,7 @@
       object-position: center;
       background-color: #f3f4f6;
     }
-
+    
     .property-image-container {
       position: relative;
       width: 100%;
@@ -84,7 +86,7 @@
       overflow: hidden;
       background: #f3f4f6;
     }
-
+    
     .card-tag {
       position: absolute;
       top: 12px;
@@ -94,34 +96,34 @@
       font-size: 0.85rem;
       font-weight: 500;
     }
-
+    
     .tag-rent {
       background: var(--primary-blue);
       color: white;
     }
-
+    
     .tag-sale {
       background: #ff7043;
       color: white;
     }
-
+    
     .property-details {
       padding: 16px;
     }
-
+    
     .property-price {
       color: var(--primary-blue);
       font-size: 1.25rem;
       font-weight: 600;
       margin-bottom: 8px;
     }
-
+    
     .property-title {
       font-weight: 600;
       margin-bottom: 4px;
       color: #1a1a1a;
     }
-
+    
     .property-location {
       font-size: 0.9rem;
       color: #666;
@@ -130,7 +132,7 @@
       align-items: center;
       gap: 4px;
     }
-
+    
     .property-features {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -138,18 +140,18 @@
       font-size: 0.85rem;
       color: #666;
     }
-
+    
     .feature-item {
       display: flex;
       align-items: center;
       gap: 4px;
     }
-
+    
     .feature-icon {
       color: var(--primary-blue);
       font-size: 1rem;
     }
-
+    
     .map-controls {
       position: absolute;
       top: 24px;
@@ -158,7 +160,7 @@
       display: flex;
       gap: 12px;
     }
-
+    
     .map-control-btn {
       background: white;
       border: none;
@@ -172,28 +174,27 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-
+    
     .map-control-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-
+    
     /* Custom scrollbar for property cards container */
     .property-cards-container::-webkit-scrollbar {
       height: 6px;
     }
-
+    
     .property-cards-container::-webkit-scrollbar-track {
       background: rgba(255,255,255,0.4);
       border-radius: 10px;
     }
-
+    
     .property-cards-container::-webkit-scrollbar-thumb {
       background: rgba(0,0,0,0.2);
       border-radius: 10px;
     }
-
-    /* Add these styles to your existing CSS */
+    
     .leaflet-popup-content-wrapper {
       padding: 0;
       overflow: hidden;
@@ -204,29 +205,29 @@
       margin: 0;
       width: 280px !important;
     }
-
+    
     .popup-content {
       font-family: 'Inter', -apple-system, sans-serif;
     }
-
+    
     .popup-image {
       width: 100%;
       height: 160px;
       object-fit: cover;
       display: block;
     }
-
+    
     .popup-details {
       padding: 16px;
     }
-
+    
     .popup-title {
       font-size: 16px;
       font-weight: 600;
       color: #1a1a1a;
       margin-bottom: 8px;
     }
-
+    
     .popup-address {
       font-size: 14px;
       color: #666;
@@ -235,15 +236,14 @@
       align-items: center;
       gap: 4px;
     }
-
+    
     .popup-features {
       display: flex;
       gap: 12px;
       font-size: 13px;
       color: #666;
     }
-
-    /* Add these modal styles to your CSS */
+    
     .property-modal {
       display: none;
       position: fixed;
@@ -256,13 +256,12 @@
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-
+    
     .property-modal.active {
       display: flex;
       opacity: 1;
     }
-
-    /* Update modal styles to remove scrollbar */
+    
     .modal-content {
       position: relative;
       width: 90%;
@@ -277,22 +276,22 @@
       display: flex;
       flex-direction: column;
     }
-
+    
     .property-modal.active .modal-content {
       transform: translateY(0);
     }
-
+    
     .modal-header {
       position: relative;
       height: 300px;
     }
-
+    
     .modal-header img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
+    
     .modal-close {
       position: absolute;
       top: 16px;
@@ -309,27 +308,27 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       transition: transform 0.2s;
     }
-
+    
     .modal-close:hover {
       transform: scale(1.1);
     }
-
+    
     .modal-body {
       padding: 24px;
       overflow-y: auto;
       max-height: 100%;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
-
+    
     .modal-body::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+      display: none;
     }
-
+    
     .modal-section {
       margin-bottom: 24px;
     }
-
+    
     .modal-section-title {
       font-size: 14px;
       font-weight: 600;
@@ -337,20 +336,20 @@
       text-transform: uppercase;
       margin-bottom: 12px;
     }
-
+    
     .property-info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 16px;
     }
-
+    
     .info-item {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 15px;
     }
-
+    
     .info-icon {
       width: 32px;
       height: 32px;
@@ -361,8 +360,7 @@
       justify-content: center;
       color: var(--primary-blue);
     }
-
-    /* Update navbar styles */
+    
     .top-nav {
       width: 100%;
       position: fixed;
@@ -372,12 +370,12 @@
       z-index: 1050;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
+    
     .nav-menu {
       display: flex;
       gap: 2rem;
     }
-
+    
     @media (max-width: 768px) {
       .nav-menu {
         display: none;
@@ -397,8 +395,7 @@
         padding: 0.5rem 0;
       }
     }
-
-    /* Add export button styles */
+    
     .export-btn {
       position: absolute;
       top: 12px;
@@ -416,18 +413,17 @@
       transition: all 0.2s ease;
       z-index: 10;
     }
-
+    
     .export-btn:hover {
       transform: scale(1.1);
       background: white;
     }
-
+    
     .export-btn i {
       color: var(--primary-blue);
       font-size: 1.1rem;
     }
-
-    /* Add modal export button styles */
+    
     .modal-export-btn {
       position: sticky;
       bottom: 24px;
@@ -445,17 +441,16 @@
       transition: all 0.2s ease;
       box-shadow: 0 4px 12px rgba(65, 105, 225, 0.2);
     }
-
+    
     .modal-export-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(65, 105, 225, 0.3);
     }
-
+    
     .modal-export-btn i {
       font-size: 1.1rem;
     }
-
-    /* Add error state styles */
+    
     .error-container {
       text-align: center;
       padding: 2rem;
@@ -463,19 +458,86 @@
       border-radius: 12px;
       box-shadow: var(--card-shadow);
     }
-
+    
     .error-icon {
       font-size: 3rem;
       color: #dc3545;
       margin-bottom: 1rem;
     }
-
+    
     .no-results {
       text-align: center;
       padding: 2rem;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 12px;
       margin: 2rem;
+    }
+    
+    /* Enhanced map view button styles */
+    .map-view-btn {
+      background: white;
+      border: 2px solid #4361ee;
+      padding: 10px 20px;
+      font-size: 15px;
+      color: #4361ee;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: 500;
+      min-width: 100px;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .map-view-btn:hover {
+      background: #f8f9fa;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+    }
+
+    .map-view-btn.active {
+      background: #4361ee;
+      color: white;
+      border-color: #4361ee;
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+    }
+
+    .map-view-btn i {
+      font-size: 18px;
+    }
+
+    .map-view-controls {
+      position: absolute;
+      bottom: 24px;
+      right: 84px;
+      z-index: 2000;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    @media (max-width: 576px) {
+      .map-view-btn {
+        min-width: auto;
+        padding: 10px;
+      }
+      
+      .map-view-controls {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 32px;
+      }
+      
+      .map-view-btn .d-sm-inline {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -486,11 +548,11 @@
       <div class="container">
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
-            <img src="\img\emblem.png" alt="Emblem" width="24" height="24" class="me-2">
+            <img src="\img\emblem.png" alt="Emblem | प्रतीक" width="24" height="24" class="me-2">
             <span>भारत सरकार | Government of India</span>
           </div>
           <div>
-            <em>Ministry of Digital Infrastructure & Services</em>
+            <em><%= __('Ministry of Digital Infrastructure & Services') %></em>
           </div>
         </div>
       </div>
@@ -499,21 +561,17 @@
     <div class="container py-2">
       <div class="d-flex justify-content-between align-items-center">
         <a href="/" class="navbar-brand">
-          <img src="\img\logo.png" alt="Logo" height="48">
+          <img src="\img\logo.png" alt="<%= __('Logo') %> | लोगो" height="48">
         </a>
         
         <nav class="nav-menu d-none d-md-flex align-items-center">
-          <a href="/" class="nav-link">Home</a>
-          <a href="#" class="nav-link">Schemes</a>
-          <a href="#" class="nav-link">Services</a>
-          <a href="#" class="nav-link">Forms</a>
-          <a href="#" class="nav-link">Help</a>
-          <a href="#" class="nav-link">Contact</a>
+          <a href="/" class="nav-link"> <%= __('Home') %></a>
+          <a href="#" class="nav-link"> <%= __('Schemes') %></a>
+          <a href="#" class="nav-link"> <%= __('Services') %></a>
+          <a href="#" class="nav-link"> <%= __('Forms') %></a>
+          <a href="#" class="nav-link"> <%= __('Help') %></a>
+          <a href="#" class="nav-link"><%= __('Contact') %></a>
         </nav>
-
-        <button class="btn d-md-none" id="menu-btn">
-          <i class="bi bi-list fs-4"></i>
-        </button>
       </div>
     </div>
 
@@ -524,7 +582,7 @@
     </div>
   </header>
 
-  <!-- Add error handling in the main content -->
+  <!-- Main Content -->
   <div class="main-container">
     <% if (typeof results === 'undefined' || results.length === 0) { %>
       <div class="no-results">
@@ -538,9 +596,25 @@
     <% } else { %>
       <!-- Map Container -->
       <div class="map-container">
+        <!-- Map View Controls with improved visibility -->
+        <div class="map-view-controls">
+          <button id="streetBtn" class="map-view-btn active">
+            <i class="bi bi-map"></i>
+            <span class="d-none d-sm-inline">Street</span>
+          </button>
+          <button id="satelliteBtn" class="map-view-btn">
+            <i class="bi bi-globe-americas"></i>
+            <span class="d-none d-sm-inline">Satellite</span>
+          </button>
+          <button id="terrainBtn" class="map-view-btn">
+            <i class="bi bi-mountain"></i>
+            <span class="d-none d-sm-inline">Terrain</span>
+          </button>
+        </div>
+
         <div id="map"></div>
         
-        <!-- Map Controls -->
+        <!-- Map Controls (Zoom In/Out) -->
         <div class="map-controls">
           <button class="map-control-btn">
             <i class="bi bi-plus-lg"></i>
@@ -725,7 +799,6 @@
           </div>
         </div>
 
-        <!-- Add export button after the last section -->
         <button 
           class="modal-export-btn" 
           onclick="exportPropertyReport(currentPropertyIndex)"
@@ -743,14 +816,58 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       try {
-        const map = L.map('map', {
-          zoomControl: false // Disable default zoom controls
-        });
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        const map = L.map('map', { zoomControl: false });
+
+        // Define different map tile layers
+        const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
           attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+        });
+
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+          maxZoom: 19,
+          attribution: '© Esri'
+        });
+
+        const terrainLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+          maxZoom: 17,
+          attribution: '© OpenTopoMap contributors'
+        });
+
+        // Variable to track current layer
+        let currentTileLayer = streetLayer;
+        currentTileLayer.addTo(map);
+
+        // Add event listeners to buttons
+        document.querySelectorAll('.map-view-btn').forEach((button) => {
+          button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            document.querySelectorAll('.map-view-btn').forEach(btn => {
+              btn.classList.remove('active');
+            });
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Handle map layer change
+            map.eachLayer((layer) => {
+              if (layer instanceof L.TileLayer) {
+                map.removeLayer(layer);
+              }
+            });
+            
+            // Add appropriate layer based on button ID
+            if (this.id === 'satelliteBtn') {
+              satelliteLayer.addTo(map);
+            } else if (this.id === 'terrainBtn') {
+              terrainLayer.addTo(map);
+            } else {
+              streetLayer.addTo(map);
+            }
+          });
+        });
+
+        // Set initial active state
+        document.getElementById('streetBtn').classList.add('active');
 
         const markers = [];
         const markerCounts = {};
@@ -846,12 +963,12 @@
           }
         }
 
-        // Handle map control buttons
+        // Handle map control buttons (zoom in/out)
         document.querySelectorAll('.map-control-btn').forEach((btn, index) => {
           btn.addEventListener('click', () => {
-            if (index === 0) map.zoomIn();
-            else if (index === 1) map.zoomOut();
-            // Handle fullscreen toggle if needed
+            // Zoom buttons are handled separately above
+            if (index === 0 && btn.querySelector('i.bi-plus-lg')) map.zoomIn();
+            if (index === 1 && btn.querySelector('i.bi-dash-lg')) map.zoomOut();
           });
         });
       } catch (err) {
@@ -872,14 +989,13 @@
 
     function showPropertyDetails(index) {
       try {
-        currentPropertyIndex = index;  // Store the current property index
+        currentPropertyIndex = index;
         const property = propertyData[index];
         if (!property) throw new Error('Property data not found');
         
         const modal = document.getElementById('propertyModal');
         if (!modal) throw new Error('Modal element not found');
         
-        // Update modal content with null checks
         document.getElementById('modalImage').src = property.imageUrl || 'https://5.imimg.com/data5/SELLER/Default/2021/3/KO/QG/XG/3922575/luxury-bungalow-design-500x500.jpg';
         document.getElementById('modalTitle').textContent = property.name || property.ownerName || '<%= __("Name Not Available") %>';
         document.getElementById('modalAddress').innerHTML = `<i class="bi bi-geo-alt"></i> ${property.address || '<%= __("N/A") %>'}`;
@@ -910,7 +1026,6 @@
       document.body.style.overflow = '';
     }
 
-    // Close modal when clicking outside
     document.getElementById('propertyModal').addEventListener('click', function(e) {
       if (e.target === this) {
         closePropertyModal();
@@ -922,7 +1037,6 @@
         const property = propertyData[index];
         if (!property) throw new Error('Property data not found');
         
-        // Create report content with null checks
         const reportContent = `
 Property Report
 
@@ -954,7 +1068,6 @@ Encumbrances: ${property.encumbrances || '<%= __("None") %>'}
 Generated on: ${new Date().toLocaleString()}
         `.trim();
 
-        // Create and trigger download
         const blob = new Blob([reportContent], { type: 'text/plain' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -968,6 +1081,11 @@ Generated on: ${new Date().toLocaleString()}
         console.error('Error exporting property report:', err);
         alert('<%= __("Error generating report. Please try again.") %>');
       }
+    }
+
+    function changeLanguage(lang) {
+      document.cookie = `lang=${lang};path=/`;
+      window.location.reload();
     }
   </script>
 </body>

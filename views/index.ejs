@@ -356,15 +356,6 @@
             <a href="#" class="mx-3"><%= __('Forms') %></a>
             <a href="#" class="mx-3"><%= __('Help') %></a>
             <a href="#" class="mx-3"><%= __('Contact') %></a>
-            <div class="mx-3">
-              <select class="form-select" id="languageSelect" onchange="changeLanguage(this.value)">
-                <% availableLocales.forEach(function(locale) { %>
-                  <option value="<%= locale %>" <%= currentLocale === locale ? 'selected' : '' %>>
-                    <%= locale.toUpperCase() %>
-                  </option>
-                <% }); %>
-              </select>
-            </div>
           </nav>
           <button class="btn d-md-none" id="menu-btn">
             <i class="fas fa-bars"></i>
