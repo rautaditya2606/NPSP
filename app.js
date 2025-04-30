@@ -6,6 +6,8 @@ const i18n = require('i18n');
 const app = express();
 const searchRoutes = require('./routes/search');
 const dummyApis = require('./routes/dummyApis');
+const contactRoutes = require('./routes/contact');
+const mockApis = require('./routes/mockApis');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -129,17 +131,20 @@ app.get('/showProperty', (req, res) => {
   res.render('showProperty', { property: property, locale: req.locale, __: req.__ });
 });
 
+// Mount routes
 app.use('/', searchRoutes);
-
-// Mount the mock API endpoints under /api/mock
-const mockApis = require('./routes/mockApis');
+app.use('/contact', contactRoutes);
 app.use('/api/mock', mockApis);
 
 // Mount dummy API routes under /api, so the endpoints are:
 // /api/doris, /api/dlr, /api/cersai, /api/mca21
 app.use('/api', dummyApis);
 
-const PORT = process.env.PORT || 8080;
+app.get("/contact",(req,res)=>{
+  res.render("contact");
+})
+
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
