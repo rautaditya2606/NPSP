@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const recaptcha = require('../config/recaptcha');
 
 // reCAPTCHA verification function
 async function verifyRecaptcha(token) {
@@ -17,6 +18,31 @@ async function verifyRecaptcha(token) {
         return false;
     }
 }
+
+// GET /contact - render page with recaptcha site key
+router.get('/contact', (req, res) => {
+    res.render('contact', {
+        recaptchaSiteKey: recaptcha.siteKey,
+    });
+});
+
+// POST /contact - verify recaptcha token on form submission
+router.post('/contact', async (req, res) => {
+    const token = req.body['g-recaptcha-response'];
+    const secret = recaptcha.secretKey;
+
+    // Verify the recaptcha token
+    const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`;
+    const response = await axios.post(verifyUrl);
+    const data = response.data;
+
+    if (!data.success) {
+        return res.status(400).send('Recaptcha validation failed.');
+    }
+
+    // Process contact submission
+    res.send('Contact form submitted.');
+});
 
 // Contact form submission handler
 router.post('/submit', async (req, res) => {
